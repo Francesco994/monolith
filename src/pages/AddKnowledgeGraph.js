@@ -37,7 +37,7 @@ class DrawerForm extends React.Component {
                     kgLastModifiedTs: Date.now(),
                     kgDescriptions: [{ lang: '', content: values.description }],
                 }
-                postKnowledgeGraph(kg, this.onClose)
+                postKnowledgeGraph(kg, this.props.onClose)
             }
         });
 

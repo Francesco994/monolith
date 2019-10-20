@@ -588,8 +588,9 @@ h1, h1 a, h3, .ant-divider-inner-text, .ant-table-row, .results, .ant-checkbox-w
   color: var(--red)
 }
 
-.has-error .ant-input {
-  border-color: var(--red)
+.has-error .ant-input, .has-error .ant-input:hover {
+  border-color: var(--red);
+  background-color: var(--medium)
 }
 
 .ant-pagination-item, .ant-pagination-prev .ant-pagination-item-link, .ant-pagination-next .ant-pagination-item-link {
