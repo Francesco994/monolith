@@ -1,6 +1,6 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import { List, Card, Popover, Spin, Button, Icon, Drawer } from 'antd';
+import { List, Card, Popover, Spin, Button, Icon, Drawer, Modal } from 'antd';
 import { getKnowledgeGraphs, downloadKnowledgeGraph, deleteKnowledgeGraph } from '../api/KgApi';
 import { saveFileInfo, dateFormat } from '../utils/utils';
 import moment from 'moment'
@@ -12,7 +12,9 @@ export default class LoadKnowledgeGraphs extends React.Component {
         data: [],
         visible: false,
         drawer: null,
-        loading: true
+        loading: true,
+        modalVisible: false,
+        toDelete: null
     }
 
     componentDidMount() {
@@ -53,6 +55,15 @@ export default class LoadKnowledgeGraphs extends React.Component {
             loading: false
         });
     }
+    
+    delete(kg) {
+        deleteKnowledgeGraph(
+            kg.kgIri,
+            () => {
+                this.setState({modalVisible: false, toDelete: null})
+                this.requestKnowledgeGraphs()
+            })
+    }
 
     render() {
         return (
@@ -60,6 +71,17 @@ export default class LoadKnowledgeGraphs extends React.Component {
                 <Spin size='large' /></div> :
 
                 <div>
+                    <Modal
+                        closable={false}
+                        visible={this.state.modalVisible}
+                        onOk={() => this.delete(this.state.toDelete)}
+                        onCancel={() => this.setState({ modalVisible: false, toDelete: null })}
+                    >
+                        <div>
+                            <div>Delete knowledge graph?</div>
+                            <div>Warning: this operation is irreversibile and will cause all data of the knowledge graph to be deleted!</div>
+                        </div>
+                    </Modal>
                     <Drawer
                         title="Create a new knowledge graph"
                         width='35vw'
@@ -105,9 +127,7 @@ export default class LoadKnowledgeGraphs extends React.Component {
                                             download
                                     </span>,
                                         <span onClick={
-                                            () => deleteKnowledgeGraph(
-                                                item.kgIri,
-                                                this.requestKnowledgeGraphs.bind(this))
+                                            () => this.setState({ modalVisible: true, toDelete: item })
                                         }>
                                             delete
                                     </span>

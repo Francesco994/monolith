@@ -10,6 +10,10 @@ export default class AssertionsList extends React.Component {
         drawer: null,
     }
 
+    onClose = () => {
+        this.setState({ visible: false, drawer: null })
+    }
+
     showDrawer = () => {
         this.setState({
             drawer: <AssertionForm
@@ -17,7 +21,9 @@ export default class AssertionsList extends React.Component {
                 mappingID={this.props.mappingID}
                 entity={this.props.currentEntity}
                 type={this.props.predicateType}
-                rerender={this.props.rerender} />,
+                rerender={this.props.rerender} 
+                onClose={this.onClose}
+                />,
             visible: true
         })
     }
@@ -30,7 +36,9 @@ export default class AssertionsList extends React.Component {
                 entity={this.props.currentEntity}
                 type={this.props.predicateType}
                 assertion={open}
-                rerender={this.props.rerender} />,
+                rerender={this.props.rerender} 
+                onClose={this.onClose}
+                />,
             visible: true
         })
     }
@@ -77,7 +85,7 @@ export default class AssertionsList extends React.Component {
                                 <Drawer
                                     title='Add Ontology Mapping'
                                     width='40vw'
-                                    onClose={() => this.setState({ visible: false, drawer: null })}
+                                    onClose={this.onClose}
                                     visible={this.state.visible}
                                     style={{
                                         overflow: 'auto',

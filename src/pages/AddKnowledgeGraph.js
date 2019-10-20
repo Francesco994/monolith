@@ -121,7 +121,7 @@ class DrawerForm extends React.Component {
                                     rules: [
                                         { required: true, message: 'Please enter knowledge graph iri' },
                                         { pattern: regexIri, message: 'Not a valid IRI' }],
-                                })(<Input placeholder="Please enter knowledge graph IRI" />)}
+                                })(<Input autoComplete= "off" placeholder="Please enter knowledge graph IRI" />)}
                             </Form.Item>
                         </Col>
                     </Row>
