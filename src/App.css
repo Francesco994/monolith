@@ -148,6 +148,15 @@ td {
   overflow: auto;
 }
 
+/* SHOW ACTIONS ON HOVER OF CARDS */
+.ant-card>.ant-card-actions {
+  visibility: hidden
+}
+
+.ant-card:hover>.ant-card-actions {
+  visibility: visible
+}
+
 /* FIX HEIGHT OF CARDS IN WIKI ETC */
 
 .classCard .ant-card-body, .objectPropertyCard .ant-card-body, .dataPropertyCard .ant-card-body {

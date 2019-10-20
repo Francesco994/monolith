@@ -32,7 +32,7 @@ export default class Datasources extends React.Component {
 
     showDrawer = () => {
         this.setState({
-            drawer: <DatasourceForm rerender={this.load} />,
+            drawer: <DatasourceForm rerender={this.onClose} />,
             visible: true
         })
     }
@@ -46,9 +46,15 @@ export default class Datasources extends React.Component {
 
     open = (open) => {
         this.setState({
-            drawer: <DatasourceForm dataSource={this.state.data.filter(d => d.id === open)[0]} />,
+            drawer: <DatasourceForm dataSource={this.state.data.filter(d => d.id === open)[0]} rerender={this.onClose}/>,
             visible: true
         })
+    }
+
+    onClose = async () => {
+        this.setState({ visible: false, drawer: null })
+        await new Promise(resolve => setTimeout(resolve, 500))
+        this.load()
     }
 
     render() {
@@ -80,7 +86,7 @@ export default class Datasources extends React.Component {
                                         </Button>
                                         <Drawer
                                             width='40vw'
-                                            onClose={() => this.setState({ visible: false, drawer: null })}
+                                            onClose={this.onClose}
                                             visible={this.state.visible}
                                             style={{
                                                 overflow: 'auto',

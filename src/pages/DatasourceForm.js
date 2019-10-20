@@ -158,7 +158,7 @@ class DrawerForm extends React.Component {
                         textAlign: 'right',
                     }}
                 >
-                    <Button onClick={this.onClose} style={{ marginRight: 8 }}>
+                    <Button onClick={this.props.rerender} style={{ marginRight: 8 }}>
                         Cancel
               </Button>
                     <Button onClick={this.submit} type="primary">

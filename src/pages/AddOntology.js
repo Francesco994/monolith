@@ -14,10 +14,11 @@ class DrawerForm extends React.Component {
         });
     };
 
-    onClose = () => {
+    onClose = async () => {
         this.setState({
             visible: false,
         });
+        await new Promise(resolve => setTimeout(resolve, 500))
         this.props.rerender()
     };
 

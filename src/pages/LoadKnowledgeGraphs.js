@@ -33,11 +33,12 @@ export default class LoadKnowledgeGraphs extends React.Component {
         });
     };
 
-    onClose = () => {
+    onClose = async () => {
         this.setState({
             visible: false,
             drawer: null
         });
+        await new Promise(resolve => setTimeout(resolve, 500))
         this.requestKnowledgeGraphs()
     };
 
