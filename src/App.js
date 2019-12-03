@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { HashRouter } from 'react-router-dom'
 import './App.css';
 
-import LoginPage from './pages/LoginPage'
-import MainLayout from './pages/MainLayout'
+import LoginPage from './pages/main/LoginPage'
+import MainLayout from './pages/main/MainLayout'
 import { Layout } from 'antd';
 
 export default class App extends Component {
