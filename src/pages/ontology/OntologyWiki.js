@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, Button} from 'antd';
+import { Layout } from 'antd';
 import ClassPage from './ClassPage';
 import ObjectPropertyPage from './ObjectPropertyPage';
 import DataPropertyPage from './DataPropertyPage';
@@ -43,11 +43,11 @@ export default class OntologyWiki extends React.Component {
     //     });
     // }
 
-    toggle = () => {
-        this.setState({
-            visible: !this.state.visible,
-        });
-    }
+    // toggle = () => {
+    //     this.setState({
+    //         visible: !this.state.visible,
+    //     });
+    // }
 
     onHandle = (entityID, predicateType) => {
         this.setState({
@@ -61,16 +61,13 @@ export default class OntologyWiki extends React.Component {
         // console.log("RENDER: ",this.state)
         return (
             <Layout>
-                <OntologyDrawer
-                    ontology={this.props.ontology}
-                    visible={this.state.visible}
-                    toggle={this.toggle}
-                    onHandle={this.onHandle} />
-
                 <Layout >
                     <Content >
                         <div style={{ height: 'calc(100vh - 25px)', overflowY: 'auto', padding: 8 }}>
-                            <Button type='primary' style={{ float: 'right', margin: 8 }} icon='menu-fold' onClick={this.toggle} />
+                            <OntologyDrawer
+                                ontology={this.props.ontology}
+                                visible={this.state.visible}
+                                onHandle={this.onHandle} />
                             <Route exact path="/open/ontology/wiki/:predicateType?/:entityID?" render={(props) => (
                                 this.state.current !== props.match.params.entityID && this.state.current !== undefined ?
                                     <Redirect push to={"/open/ontology/wiki/" + this.state.predicateType + "/" + this.state.current} />

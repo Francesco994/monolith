@@ -5,6 +5,7 @@ import * as fakeData from './fakeData'
 import { graphol } from './ACIOpenData'
 import { mp as MastroProperties } from './MastroProperties';
 
+
 // const ips = ['192.168.0.59', '192.168.0.15']
 // var mastroUrl = 'http://' + ips[0] + ':8080/mws/rest/mwsx'
 // mastroUrl = '/mws/rest/mwsx'
@@ -15,12 +16,18 @@ function manageError(err) {
     if (err.response === undefined) {
         reportError(err.message);
         if (err.message === 'Network Error') {
-            localStorage.removeItem('headers'); window.location.reload()
+            localStorage.removeItem('headers')
+            let lo = document.getElementById("logout")
+            lo && lo.click()
         }
     }
     else {
         reportError(err.response.data);
-        if (err.response.status === 401) { localStorage.removeItem('headers'); window.location.reload() }
+        if (err.response.status === 401) { 
+            localStorage.removeItem('headers')
+            let lo = document.getElementById("logout")
+            lo && lo.click()
+        }
     }
     console.error(err)
 }

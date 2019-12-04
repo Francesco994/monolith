@@ -207,6 +207,11 @@ td {
   padding: 0px 29.5px !important;
 }
 
+#logoMenuItem {
+  padding: 0px !important;
+  margin-top: 16px;
+}
+
 /***************************
 *                          *
 *                          *
@@ -223,7 +228,7 @@ td {
   background-color: var(--light);
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 62px)
+  height: 100vh
 }
 
 .ant-layout, .SPARQLTab, .ant-tabs.ant-tabs-card>.ant-tabs-bar .ant-tabs-tab-active {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, NavLink, Redirect } from 'react-router-dom'
+import { Route, Redirect } from 'react-router-dom'
 import { Layout } from 'antd';
 // import logo_scritta from '../scritta.svg';
 // import logo from '../only_logo.svg';
@@ -11,6 +11,7 @@ import Settings from '../settings/Settings';
 import UnderConstruction from '../components/UnderConstruction';
 import LoadKnowledgeGraphs from '../knowledgeGraph/LoadKnowledgeGraphs';
 import CurrentKnowledgeGraph from '../knowledgeGraph/CurrentKnowledgeGraph';
+import packageJson from '../../../package.json'
 const { Content, Footer, Sider } = Layout;
 
 export default class MainLayout extends React.Component {
@@ -148,12 +149,6 @@ export default class MainLayout extends React.Component {
           className='mainMenu'
         >
           <div style={{ position: 'fixed' }}>
-            <div style={{ padding: 16 }} >
-              <NavLink to="/">
-                {/* <img src={this.state.collapsed ? logo : logo_scritta} alt="logo" style={this.state.collapsed ? { maxHeight: 60 } : {}} /> */}
-                <div className={this.state.collapsed ? 'logo-closed' : 'logo-open'} />
-              </NavLink>
-            </div>
             <MainMenu
               collapsed={this.state.collapsed}
               open={this.state.open}
@@ -200,7 +195,11 @@ export default class MainLayout extends React.Component {
             {/* </div> */}
           </Content>
           <Footer style={{ padding: '2px', textAlign: 'center' }}>
-            <a href="http://www.obdasystems.com" target="_blank" rel="noopener noreferrer">OBDA Systems ©2018</a>
+            <div>
+              <span>Monolith {packageJson.version} </span>
+              <a href="http://www.obdasystems.com" target="_blank" rel="noopener noreferrer">OBDA Systems</a>
+              <span> © 2018 - 2019</span>
+            </div>
           </Footer>
         </Layout>
       </Layout>

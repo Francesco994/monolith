@@ -18,6 +18,12 @@ export default class MainMenu extends React.Component {
                     theme="dark"
                     className='mainMenu'
                     mode="vertical">
+                    <MenuItem key="home" id='logoMenuItem'>
+                        <NavLink to="/">
+                            <div className={'logo-closed'} style={{height: 62, marginTop: 4}}/>
+                            <span>Home</span>
+                        </NavLink>
+                    </MenuItem>
                     <MenuItem key="ontology">
                         <NavLink
                             to="/ontology"
@@ -26,7 +32,6 @@ export default class MainMenu extends React.Component {
                         >
                             <span>
                                 <Icon component={FaSitemap} />
-
                                 <span>Ontology</span>
                             </span>
                         </NavLink>
@@ -83,6 +88,7 @@ export default class MainMenu extends React.Component {
                     </MenuItem> */}
                     <MenuItem key="Logout">
                         <div
+                            id="logout"
                             style={{ color: 'rgba(255, 255, 255, 0.75)' }}
                             onClick={this.props.logout}
                         >
