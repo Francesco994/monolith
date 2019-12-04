@@ -143,6 +143,11 @@ td {
   overflow: auto;
 }
 
+.ant-card-meta-detail>.ant-card-meta-description {
+  height: 84px;
+  overflow: hidden;
+}
+
 .mappingAssertion>.ant-card-body {
   height: 247px;
   overflow: auto;
@@ -301,6 +306,10 @@ td {
   border-color: var(--highlight)
 }
 
+.ant-select-dropdown-menu-item:hover:not(.ant-select-dropdown-menu-item-disabled), .ant-select-dropdown-menu-item-active:not(.ant-select-dropdown-menu-item-disabled) {
+  background-color: var(--highlight-gray);
+}
+
 .ant-btn-group .ant-btn-primary:first-child:not(:last-child) {
   border-right-color: var(--highlight)
 }
@@ -454,7 +463,7 @@ a:hover, .link:hover {
 
 /* TABLE ROWS */
 
-.ant-table-tbody>tr:hover:not(.ant-table-expanded-row)>td {
+.ant-table-thead > tr.ant-table-row-hover:not(.ant-table-expanded-row):not(.ant-table-row-selected) > td, .ant-table-tbody > tr.ant-table-row-hover:not(.ant-table-expanded-row):not(.ant-table-row-selected) > td, .ant-table-thead > tr:hover:not(.ant-table-expanded-row):not(.ant-table-row-selected) > td, .ant-table-tbody > tr:hover:not(.ant-table-expanded-row):not(.ant-table-row-selected) > td {
   background-color: var(--highlight-gray)
 }
 

@@ -12,7 +12,7 @@ import { mp as MastroProperties } from './MastroProperties';
 
 const fakeCalls = false
 
-function manageError(err) {
+export function manageError(err) {
     if (err.response === undefined) {
         reportError(err.message);
         if (err.message === 'Network Error') {

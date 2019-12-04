@@ -1,31 +1,10 @@
-import { message } from 'antd'
+import {manageError} from './MastroApi'
 import axios from 'axios';
 
 import * as fakeData from './fakeData'
 
 const fakeCalls = false
 
-function manageError(err) {
-    if (err.response === undefined) {
-        reportError(err.message);
-        if (err.message === 'Network Error') {
-            localStorage.removeItem('headers'); window.location.reload()
-        }
-    }
-    else {
-        reportError(err.response.data);
-        if (err.response.status === 401) { localStorage.removeItem('headers'); window.location.reload() }
-    }
-    console.error(err)
-}
-
-function reportError(error) {
-    console.error(error)
-    const trace = error.stackTrace ? 'Exception in ' + error.stackTrace[0].methodName + ' ' + error.stackTrace[0].className : null
-    message.error(error.message ||
-        trace ||
-        error)
-}
 
 export function getKnowledgeGraphs(callback) {
     if (fakeCalls) return callback(fakeData.kgs)

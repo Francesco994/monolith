@@ -137,15 +137,15 @@ export default class LoadKnowledgeGraphs extends React.Component {
                                             {this.props.drawer ?
                                                 <div>
                                                     <Card.Meta key={item.kgIri}
-                                                        title={item.kgTitle[0].content + ' ' + item.kgIri}
-                                                        description={item.mappingDescription}
+                                                        title={<div>{item.kgTitle[0].content}<br/>{item.kgIri}</div>}
+                                                        description={item.kgDescriptions[0].content}
                                                     />
                                                     <div className='ant-card-meta-description'>{moment(item.kgLastModifiedTs).format(dateFormat)}</div>
                                                 </div> :
                                                 <NavLink to={"/open/kg/info"}>
                                                     <Card.Meta key={item.kgIri}
-                                                        title={item.kgTitle[0].content + ' ' + item.kgIri}
-                                                        description={item.mappingDescription}
+                                                        title={<div>{item.kgTitle[0].content}<br/>{item.kgIri}</div>}
+                                                        description={item.kgDescriptions[0].content}
                                                     />
                                                     <div className='ant-card-meta-description'>{moment(item.kgLastModifiedTs).format(dateFormat)}</div>
                                                 </NavLink>
