@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, List, Divider, Spin } from 'antd'
+import { Card, List, Divider, Spin, Icon } from 'antd'
 import AssertionsList from './AssertionsList';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { darcula } from 'react-syntax-highlighter/dist/styles/hljs';
@@ -26,14 +26,16 @@ export default class SQLViewsPage extends React.Component {
             this.loaded)
     }
 
-    componentWillReceiveProps(props) {
-        this.setState({ loading: true })
-        getMappingView(
-            props.ontology.name,
-            props.ontology.version,
-            props.mappingID,
-            props.viewID,
-            this.loaded)
+    componentDidUpdate(prevProps) {
+        if (prevProps.viewID !== this.props.viewID) {
+            this.setState({ loading: true })
+            getMappingView(
+                this.props.ontology.name,
+                this.props.ontology.version,
+                this.props.mappingID,
+                this.props.viewID,
+                this.loaded)
+        }
     }
 
     loaded = (data) => {
@@ -57,26 +59,34 @@ export default class SQLViewsPage extends React.Component {
             },
         ]
         const elements = [
-            <Card
-                className='mappingAssertion'
-                actions={!this.props.entity && [
-                    <span onClick={
-                        () => this.props.edit(data.sqlView)
-                    }>
-                        edit
-                    </span>,
-                    <span onClick={
-                        () => deleteMappingView(
-                            this.props.ontology.name,
-                            this.props.ontology.version,
-                            this.props.mappingID,
-                            this.props.viewID,
-                            this.props.delete)
-                    }>
-                        delete
-                    </span>
-                ]}>
-                <ListMapItem data={first} />
+            <Card className='mappingAssertion'>
+                <Card.Meta key={this.props.assertion}
+                    title={<div></div>}
+                    description={<ListMapItem data={first} />}
+                />
+                {!this.props.entity && 
+                    <div className='card-bottom'>
+                        <div></div>
+                        <div className='card-actions'>
+                            <span onClick={
+                                () => this.props.edit(data.sqlView)
+                            }>
+                                <Icon type="edit" theme="filled"/>
+                            </span>
+                            <span className='delete-icon' style={{paddingLeft: 12}} 
+                                onClick={
+                                    () => deleteMappingView(
+                                        this.props.ontology.name,
+                                        this.props.ontology.version,
+                                        this.props.mappingID,
+                                        this.props.viewID,
+                                        this.props.delete)
+                                }>
+                                <Icon type="delete" theme="filled"/>
+                            </span>
+                        </div>
+                    </div>
+                }
             </Card>,
             <Divider>{"Ontology Mappings"}</Divider>,
             <AssertionsList entity list={data.mappingAssertions} />,

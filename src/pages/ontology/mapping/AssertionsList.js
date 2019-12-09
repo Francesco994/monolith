@@ -54,11 +54,7 @@ export default class AssertionsList extends React.Component {
     }
 
     render() {
-        let dataSource = [...this.props.list]
-
-        if (!this.props.entity) {
-            dataSource.push('')
-        }
+        let dataSource = ['',...this.props.list]
 
         return (
             <div>
@@ -79,7 +75,7 @@ export default class AssertionsList extends React.Component {
                             </List.Item>
                             :
                             <List.Item key={index}>
-                                <Button type='primary' style={{ height: 294, width: '100%' }} onClick={this.showDrawer}>
+                                <Button type='primary' style={{ height: 249, width: '100%' }} onClick={this.showDrawer}>
                                     <Icon type="plus" /> Add Ontology Mapping
                                 </Button>
                                 <Drawer

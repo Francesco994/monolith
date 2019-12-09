@@ -101,6 +101,10 @@ h1 {
   margin: 0 !important
 }
 
+.ant-card-body {
+  padding-bottom: 2px;
+}
+
 /* WORD WRAP IN TABLE CELLS*/
 
 td {
@@ -146,6 +150,20 @@ td {
 .ant-card-meta-detail>.ant-card-meta-description {
   height: 84px;
   overflow: hidden;
+}
+
+.mappingAssertion>.ant-card-body>.ant-card-meta {
+  height: unset;
+}
+.mappingAssertion>.ant-card-body>.ant-card-meta>.ant-card-meta-detail>.ant-card-meta-description {
+  height: 195px;
+  overflow: auto;
+}
+
+.card-bottom {
+  display: flex;
+  justify-content: space-between;
+  color: var(--highlight-gray)
 }
 
 .mappingAssertion>.ant-card-body {
@@ -217,6 +235,9 @@ td {
   margin-top: 16px;
 }
 
+.ant-tabs.ant-tabs-card .ant-tabs-extra-content {
+  line-height: 34px;
+}
 /***************************
 *                          *
 *                          *
@@ -224,6 +245,15 @@ td {
 *                          *
 *                          *
 ****************************/
+.card-actions {
+  color: var(--white);
+  cursor: pointer;
+}
+
+.delete-icon:hover {
+  color: var(--red);
+  transition: .4s ease-in-out
+}
 
 .ant-table-thead>tr>th {
   border: unset
@@ -508,6 +538,10 @@ a:hover, .link:hover {
 
 h1, h1 a, h3, .ant-divider-inner-text, .ant-table-row, .results, .ant-checkbox-wrapper, .ant-card-meta-title, .ant-card-meta-description, .ant-pagination-item-ellipsis, .ant-progress-text, .ant-select-selection, .ant-select-arrow, .ant-select-dropdown-menu-item, .ant-card-actions>li, .ant-drawer-title, .ant-form-item-label>label, .ant-table-thead>tr>th, .ant-modal-body, .ant-modal-close, .ant-input, .ant-tabs-tab-prev-icon, .ant-tabs-tab-next-icon, .ant-drawer-close, .search, .ant-modal-header .ant-modal-title {
   color: var(--white) !important;
+}
+
+.ant-card-meta-title {
+  font-weight: bold;
 }
 
 .ant-empty-image {

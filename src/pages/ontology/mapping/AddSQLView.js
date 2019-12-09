@@ -77,7 +77,7 @@ class AddSQLViewForm extends React.Component {
                             required: true, message: 'Please select sql view name',
                         }],
                     })(
-                        <TextArea autosize={{ minRows: 1 }} />
+                        <TextArea autoSize={{ minRows: 1 }} />
                     )}
                 </Form.Item>
                 <Form.Item label='SQL Code'>
@@ -86,7 +86,7 @@ class AddSQLViewForm extends React.Component {
                             required: true, message: 'Please select sql view name',
                         }],
                     })(
-                        <TextArea autosize={{ minRows: 8 }} />
+                        <TextArea autoSize={{ minRows: 8 }} />
                     )}
                 </Form.Item>
                 <Form.Item label='Description'>
@@ -95,7 +95,7 @@ class AddSQLViewForm extends React.Component {
                             required: false,
                         }],
                     })(
-                        <TextArea autosize={{ minRows: 1 }} />
+                        <TextArea autoSize={{ minRows: 1 }} />
                     )}
                 </Form.Item>
                 <Form.Item {...tailFormItemLayout} style={{ marginTop: 24 }}>

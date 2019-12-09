@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, Button } from 'antd';
+import { Layout } from 'antd';
 import AssertionsPage from './AssertionsPage'
 import OntologyDrawer from '../OntologyDrawer';
 
@@ -12,12 +12,6 @@ export default class AssertionsPane extends React.Component {
         current: null,
         predicateType: null,
         visible: true
-    }
-
-    toggle = () => {
-        this.setState({
-            visible: !this.state.visible,
-        });
     }
 
     onHandle = (entityID, predicateType) => {
@@ -37,11 +31,7 @@ export default class AssertionsPane extends React.Component {
                     </div>
 
                 </Header> */}
-                <OntologyDrawer
-                    ontology={this.props.ontology}
-                    visible={this.state.visible}
-                    toggle={this.toggle}
-                    onHandle={this.onHandle} />
+                
                 {/* <Sider
                     // width={200} 
                     style={{ background: '#fff' }}
@@ -52,7 +42,10 @@ export default class AssertionsPane extends React.Component {
                 <Layout>
                     <Content >
                         <div>
-                            <Button type='primary' style={{ float: 'right', margin: 8 }} icon='menu-fold' onClick={this.toggle} />
+                        <OntologyDrawer
+                            ontology={this.props.ontology}
+                            visible={this.state.visible}
+                            onHandle={this.onHandle} />
                             {this.state.current !== null &&
                                 <AssertionsPage
                                     ontology={this.props.ontology}

@@ -11,18 +11,27 @@ export default class InstanceNavigationObjectTable extends React.Component {
     }
 
     componentDidMount() {
-        this.componentWillReceiveProps(this.props)
+        const obj = this.props.objects
+            let expanded = {}
+            for (let i = 0; i < obj.object_triples.length; i++) {
+                let predicateLink = obj.object_triples[i].predicate;
+                expanded[predicateLink] = new Set()
+            }
+    
+        this.setState({ expanded })
     }
 
-    componentWillReceiveProps(props) {
-        const obj = props.objects
-        let expanded = {}
-        for (let i = 0; i < obj.object_triples.length; i++) {
-            let predicateLink = obj.object_triples[i].predicate;
-            expanded[predicateLink] = new Set()
+    componentDidUpdate(prevProps) {
+        if (prevProps.objects !== this.props.objects) {
+            const obj = this.props.objects
+            let expanded = {}
+            for (let i = 0; i < obj.object_triples.length; i++) {
+                let predicateLink = obj.object_triples[i].predicate;
+                expanded[predicateLink] = new Set()
+            }
+    
+            this.setState({ expanded })
         }
-
-        this.setState({ expanded })
     }
 
     expandTypeSubject(predicate, type) {

@@ -28,11 +28,7 @@ export default class InstanceNavigationSubjectTable extends React.Component {
     }
 
     componentDidMount() {
-        this.componentWillReceiveProps(this.props)
-    }
-
-    componentWillReceiveProps(props) {
-        const obj = props.subjects
+        const obj = this.props.subjects
         let expanded = {}
         for (let i = 0; i < obj.subject_object_properties.length; i++) {
             let predicateLink = obj.subject_object_properties[i].predicate;
@@ -40,6 +36,19 @@ export default class InstanceNavigationSubjectTable extends React.Component {
         }
 
         this.setState({ expanded })
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.subjects !== this.props.subjects) {
+            const obj = this.props.subjects
+            let expanded = {}
+            for (let i = 0; i < obj.subject_object_properties.length; i++) {
+                let predicateLink = obj.subject_object_properties[i].predicate;
+                expanded[predicateLink] = new Set()
+            }
+
+            this.setState({ expanded })
+        }
     }
 
     expandTypeSubject(predicate, type) {

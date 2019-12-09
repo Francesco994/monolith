@@ -1,8 +1,8 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { List, Card, Popover, Spin, Button, Icon, Drawer, Modal } from 'antd';
-import { getKnowledgeGraphs, downloadKnowledgeGraph, deleteKnowledgeGraph } from '../../api/KgApi';
-import { saveFileInfo, dateFormat } from '../../utils/utils';
+import { getKnowledgeGraphs, deleteKnowledgeGraph } from '../../api/KgApi';
+import { dateFormat } from '../../utils/utils';
 import moment from 'moment'
 import AddKnowledgeGraph from './AddKnowledgeGraph';
 
@@ -89,9 +89,6 @@ export default class LoadKnowledgeGraphs extends React.Component {
                         closable={false}
                         onClose={this.onClose}
                         visible={this.state.visible}
-                    // style={{
-                    //     overflow: 'auto'
-                    // }}
                     >
                         {this.state.drawer}
                     </Drawer>
@@ -107,32 +104,7 @@ export default class LoadKnowledgeGraphs extends React.Component {
                         renderItem={item =>
                             item ? (
                                 <List.Item key={item.mappingID} style={{ paddingBottom: 6 }}>
-                                    <Card hoverable actions={[
-                                        <NavLink to={"/open/kg/info/" + item.mappingID}>
-                                            <Popover content={
-                                                <div>
-                                                    <p>{item.kgTriples + " triples"}</p>
-                                                </div>
-                                            } placement="bottom">
-                                                <span>
-                                                    metrics
-                                        </span>
-                                            </Popover>
-                                        </NavLink>,
-                                        <span onClick={
-                                            () => downloadKnowledgeGraph(
-                                                item.kgIri,
-                                                "RDF",
-                                                saveFileInfo)
-                                        }>
-                                            download
-                                    </span>,
-                                        <span onClick={
-                                            () => this.setState({ modalVisible: true, toDelete: item })
-                                        }>
-                                            delete
-                                    </span>
-                                    ]}>
+                                    <Card hoverable>
                                         <div onClick={() => this.props.open(item.kgIri)}>
                                             {this.props.drawer ?
                                                 <div>
@@ -147,15 +119,33 @@ export default class LoadKnowledgeGraphs extends React.Component {
                                                         title={<div>{item.kgTitle[0].content}<br/>{item.kgIri}</div>}
                                                         description={item.kgDescriptions[0].content}
                                                     />
-                                                    <div className='ant-card-meta-description'>{moment(item.kgLastModifiedTs).format(dateFormat)}</div>
                                                 </NavLink>
                                             }
+                                        </div>
+                                        <div className='card-bottom'>
+                                            <div>
+                                                {moment(item.kgLastModifiedTs).format(dateFormat)}
+                                            </div>
+                                            <div className='card-actions'>
+                                                <Popover trigger="click" content={
+                                                    <div>
+                                                        <p>{item.kgTriples + " triples"}</p>
+                                                    </div>
+                                                    } placement="bottom">
+                                                    <Icon type="info-circle" theme="filled" />
+                                                </Popover>
+                                               <span className='delete-icon' style={{paddingLeft: 12}} onClick={
+                                                    () => this.setState({ modalVisible: true, toDelete: item })
+                                                }>
+                                                    <Icon type="delete" theme="filled" />
+                                                </span>
+                                            </div>
                                         </div>
                                     </Card>
                                 </List.Item>
                             ) : (
                                     <List.Item>
-                                        <Button type='primary' style={{ height: 270, width: '100%' }} onClick={this.showDrawer}>
+                                        <Button type='primary' style={{ height: 199, width: '100%' }} onClick={this.showDrawer}>
                                             <Icon type="plus" /> Add Knowledge Graph
                                         </Button>
                                     </List.Item>

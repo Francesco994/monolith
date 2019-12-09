@@ -22,12 +22,12 @@ export default class KnowledgeGraphInfo extends React.Component {
             this.loaded)
     }
 
-    componentWillReceiveProps(props) {
-        this.setState({ loading: true })
-        getKnowledgeGraphInfo(
-            props.kg.kgIri,
-            this.loaded)
-    }
+    // componentDidUpdate(prevProps) {
+    //     this.setState({ loading: true })
+    //     getKnowledgeGraphInfo(
+    //         props.kg.kgIri,
+    //         this.loaded)
+    // }
 
     loaded = (data) => {
         if (data === undefined)

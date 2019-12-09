@@ -22,14 +22,14 @@ export default class OntologyInfo extends React.Component {
             this.loaded)
     }
 
-    componentWillReceiveProps(props) {
-        //console.log(props.ontology.name + "    " + props.ontology.version)
-        this.setState({ loading: true })
-        getOntologyVersionInfo(
-            props.ontology.name,
-            props.ontology.version,
-            this.loaded)
-    }
+    // componentDidUpdate(prevProps) {
+    //     //console.log(props.ontology.name + "    " + props.ontology.version)
+    //     this.setState({ loading: true })
+    //     getOntologyVersionInfo(
+    //         props.ontology.name,
+    //         props.ontology.version,
+    //         this.loaded)
+    // }
 
     loaded = (data) => {
         if (data === undefined)

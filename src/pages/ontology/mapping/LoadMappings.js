@@ -1,8 +1,8 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import { List, Card, Divider as h1, Popover, Spin } from 'antd';
-import { getMappings, downloadMappingFile, deleteMappingFile } from '../../../api/MastroApi';
-import { saveFileInfo, dateFormat } from '../../../utils/utils';
+import { List, Card, Popover, Spin, Icon } from 'antd';
+import { getMappings, deleteMappingFile } from '../../../api/MastroApi';
+import { dateFormat } from '../../../utils/utils';
 import moment from 'moment'
 import AddMapping from './AddMapping';
 
@@ -56,47 +56,42 @@ export default class LoadMappings extends React.Component {
                         renderItem={item =>
                             item ? (
                                 <List.Item key={item.mappingID}>
-                                    <Card hoverable actions={[
-                                        <NavLink to={"/open/ontology/mapping/info/" + item.mappingID}>
-                                            <Popover content={
-                                                <div>
-                                                    <p>{item.numAssertions + " assertions"}</p>
-                                                    <p>{item.numViews + " views"}</p>
-                                                    <p>{item.numKeyDependencies + item.numInclusionDependencies + item.numDenials + " dependencies"}</p>
-                                                </div>
-                                            } placement="bottom">
-                                                <span>
-                                                    metrics
-                                        </span>
-                                            </Popover>
-                                        </NavLink>,
-                                        <span onClick={
-                                            () => downloadMappingFile(
-                                                this.props.ontology.name,
-                                                this.props.ontology.version,
-                                                item.mappingID,
-                                                saveFileInfo)
-                                        }>
-                                            download
-                                    </span>,
-                                        <span onClick={
-                                            () => deleteMappingFile(
-                                                this.props.ontology.name,
-                                                this.props.ontology.version,
-                                                item.mappingID,
-                                                this.requestMappings.bind(this))
-                                        }>
-                                            delete
-                                    </span>
-                                    ]}>
+                                    <Card hoverable>
                                         <NavLink to={"/open/ontology/mapping/info/" + item.mappingID}>
                                             <Card.Meta key={item.mappingID}
                                                 avatar={<img alt="" src={item.avatar} />}
                                                 title={item.mappingID + ' ' + item.mappingVersion}
                                                 description={item.mappingDescription}
                                             />
-                                            <div className='ant-card-meta-description' style={{float: 'right'}}>{moment(item.mappingDate).format(dateFormat)}</div>
                                         </NavLink>
+                                        <div className='card-bottom'>
+                                            <div>
+                                                {moment(item.mappingDate).format(dateFormat)}
+                                            </div>
+                                            <div className='card-actions'>
+                                                <Popover
+                                                    content={
+                                                        <div>
+                                                            <p>{item.numAssertions + " assertions"}</p>
+                                                            <p>{item.numViews + " views"}</p>
+                                                            <p>{item.numKeyDependencies + item.numInclusionDependencies + item.numDenials + " dependencies"}</p>
+                                                        </div>
+                                                    }
+                                                    placement="bottom"
+                                                    trigger="click">
+                                                    <Icon type="info-circle" theme="filled" />
+                                                </Popover>
+                                                <span className='delete-icon' style={{paddingLeft: 12}} onClick={
+                                                    () => deleteMappingFile(
+                                                        this.props.ontology.name,
+                                                        this.props.ontology.version,
+                                                        item.mappingID,
+                                                        this.requestMappings.bind(this))
+                                                }>
+                                                    <Icon type="delete" theme="filled" />
+                                                </span>
+                                            </div>
+                                        </div>
                                     </Card>
                                 </List.Item>
                             ) : (

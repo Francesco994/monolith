@@ -27,18 +27,18 @@ export default class AssertionsPage extends React.Component {
         }
     }
 
-    componentWillReceiveProps(props) {
-        // console.log(props)
-        if (props.current !== undefined) {
-            this.setState({ loading: true })
-            getMappingAssertion(
-                props.ontology.name,
-                props.ontology.version,
-                props.mappingID,
-                props.current,
-                this.loaded)
-        }
-    }
+    // componentDidUpdate(prevProps) {
+
+    //     if (props.current !== undefined) {
+    //         this.setState({ loading: true })
+    //         getMappingAssertion(
+    //             props.ontology.name,
+    //             props.ontology.version,
+    //             props.mappingID,
+    //             props.current,
+    //             this.loaded)
+    //     }
+    // }
 
     componentWillUnmount() {
         this._isMounted = false

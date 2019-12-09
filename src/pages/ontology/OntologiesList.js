@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, Card, Select, Button, Modal } from 'antd';
+import { List, Card, Select, Button, Modal, Icon } from 'antd';
 import AddOntology from './AddOntology';
 import { deleteOntology } from '../../api/MastroApi';
 import moment from 'moment'
@@ -44,10 +44,11 @@ export default class OntologiesList extends React.Component {
         })
     }
 
-    componentWillReceiveProps(props) {
-        this.setState({
-            data: props.data.sort(this.sortByDate)
-        })
+    componentDidUpdate(prevProps) {
+        if (prevProps.data !== this.props.data)
+            this.setState({
+                data: this.props.data.sort(this.sortByDate)
+            })
     }
 
 
@@ -117,15 +118,8 @@ export default class OntologiesList extends React.Component {
                     renderItem={item =>
                         item ? (
                             <List.Item key={item.ontologyID} style={{ paddingBottom: 6 }}>
-                                <Card hoverable actions={[
-                                    <span onClick={
-                                        () => this.setState({ modalVisible: true, toDelete: item.ontologyID })
-                                    }>
-                                        delete
-                                    </span>
-                                ]}>
+                                <Card hoverable>
                                     <Card.Meta key={item.ontologyID}
-                                        avatar={<img alt="" src={item.avatar} />}
                                         title={item.ontologyID}
                                         description={item.ontologyDescription}
                                         onClick={
@@ -134,7 +128,18 @@ export default class OntologiesList extends React.Component {
                                             }
                                         }
                                     />
-                                    <div className='ant-card-meta-description' style={{float: 'right'}}>{moment(item.ontologyDate).format(dateFormat)}</div>
+                                    <div className='card-bottom'>
+                                        <div>
+                                            {moment(item.ontologyDate).format(dateFormat)}
+                                        </div>
+                                        <div className='card-actions'>
+                                            <span className='delete-icon' style={{paddingLeft: 12}} onClick={
+                                                () => this.setState({ modalVisible: true, toDelete: item.ontologyID })
+                                            }>
+                                                <Icon type="delete" theme="filled" />
+                                            </span>
+                                        </div>
+                                    </div>
                                 </Card>
                             </List.Item>
                         ) : (

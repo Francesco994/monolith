@@ -7,10 +7,13 @@ const Panel = Collapse.Panel;
 export default class CollapsibleList extends React.Component {
     state = { activeKey: [] }
 
-    componentWillReceiveProps(props) {
-        var opened = props.title
-        if (props.list === undefined || props.list === null || props.list.length === 0) opened = []
-        this.setState({ activeKey: opened })
+    componentDidUpdate(prevProps) {
+        let props = this.props
+        if (prevProps.activeKey !== this.props.activeKey) {
+            var opened = props.title
+            if (props.list === undefined || props.list === null || props.list.length === 0) opened = []
+            this.setState({ activeKey: opened })
+        }
     }
 
     onChange(activeKey) {

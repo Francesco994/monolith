@@ -1,9 +1,9 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom'
-import { List, Card, Popover, Select, Button, Modal } from 'antd';
+import { List, Card, Popover, Select, Button, Modal, Icon } from 'antd';
 import UploadFile from '../components/UploadFile';
-import { downloadOntologyFile, deleteOntologyVersion } from '../../api/MastroApi';
-import { saveFileInfo, dateFormat } from '../../utils/utils';
+import { deleteOntologyVersion } from '../../api/MastroApi';
+import { dateFormat } from '../../utils/utils';
 import moment from 'moment'
 
 
@@ -54,11 +54,11 @@ export default class OntologyVersionsList extends React.Component {
         })
     }
 
-    componentWillReceiveProps(props) {
-        this.setState({
-            data: this.getData(props.data).sort(this.sortByDate)
-        })
-    }
+    // componentDidUpdate(prevProps) {
+    //     this.setState({
+    //         data: this.getData(props.data).sort(this.sortByDate)
+    //     })
+    // }
 
 
     delete(ontologyID, versionID) {
@@ -122,30 +122,7 @@ export default class OntologyVersionsList extends React.Component {
                     renderItem={item =>
                         item ? (
                             <List.Item key={item.versionID}>
-                                <Card hoverable actions={[
-                                    <Popover content={
-                                        <div>
-                                            <p>{item.numClasses + " classes"}</p>
-                                            <p>{item.numObjectProperties + " object properties"}</p>
-                                            <p>{item.numDataProperties + " data properties"}</p>
-                                            <p>{item.numAxioms + " axioms"}</p>
-                                        </div>
-                                    } placement="bottom">
-                                        <span>
-                                            info
-                                        </span>
-                                    </Popover>,
-                                    <span onClick={
-                                        () => downloadOntologyFile(item.ontologyID, item.versionID, saveFileInfo)
-                                    }>
-                                        download
-                                    </span>,
-                                    <span onClick={
-                                        () => this.setState({ modalVisible: true, toDelete: { name: item.ontologyID, version: item.versionID } })
-                                    }>
-                                        delete
-                                    </span>
-                                ]}>
+                                <Card hoverable>
                                     <NavLink to={"/open/ontology/info/"} onClick={() => this.props.open(item.ontologyID, item.versionID)}>
                                         <Card.Meta key={item.versionID}
                                             avatar={<img alt="" src={item.avatar} />}
@@ -166,7 +143,32 @@ export default class OntologyVersionsList extends React.Component {
                                             description={item.versionDescription[0] !== undefined ? item.versionDescription[0].content : ""}
                                         />
                                     </NavLink>
-                                    <div className='ant-card-meta-description' style={{ float: 'right' }}>{moment(item.versionDate).format(dateFormat)}</div>
+                                    <div className='card-bottom'>
+                                        <div>
+                                            {moment(item.versionDate).format(dateFormat)}
+                                        </div>
+                                        <div className='card-actions'>
+                                            <Popover
+                                                content={
+                                                    <div>
+                                                        <p>{item.numClasses + " classes"}</p>
+                                                        <p>{item.numObjectProperties + " object properties"}</p>
+                                                        <p>{item.numDataProperties + " data properties"}</p>
+                                                        <p>{item.numAxioms + " axioms"}</p>
+                                                    </div>
+                                                    }
+                                                placement="bottom"
+                                                trigger="click">
+                                                <Icon type="info-circle" theme="filled" />
+
+                                            </Popover>
+                                            <span className='delete-icon' style={{paddingLeft: 12}} onClick={
+                                                () => this.setState({ modalVisible: true, toDelete: { name: item.ontologyID, version: item.versionID } })
+                                            }>
+                                                <Icon type="delete" theme="filled" />
+                                            </span>
+                                        </div>
+                                    </div>
                                 </Card>
                             </List.Item>
                         ) : (

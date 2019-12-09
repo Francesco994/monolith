@@ -431,7 +431,7 @@ export default class MastroSPARQLTabPane extends React.Component {
                 <TextArea
                     style={{ margin: '12px 0px 12px 0px' }}
                     placeholder="Description"
-                    autosize
+                    autoSize
                     value={this.state.queryDescription}
                     onChange={this.changeDescription}
                 />

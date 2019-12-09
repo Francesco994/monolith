@@ -46,7 +46,6 @@ export default class SearchTree extends React.Component {
       // var click = document.createEvent("MouseEvent")
       // click.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
       // document.getElementById("root").dispatchEvent(click)
-
     }
     // toggle expand and collapse clicking on Classes Object Properties adn Data Properties labels
     else {

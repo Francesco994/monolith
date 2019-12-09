@@ -36,15 +36,17 @@ export default class SearchTree extends React.Component {
     // document.getElementsByClassName("dropdown-trigger")[0].click()
   }
 
-  componentWillReceiveProps(props) {
-    // console.log(this.props)
-    this.setState({ loading: true })
-    getMappingViews(
-      props.ontology.name,
-      props.ontology.version,
-      this.props.mappingID,
-      this.loaded)
-  }
+  // componentDidUpdate(prevProps, prevState) {
+  //   if (!prevState.loading) {
+  //     let props = this.props
+  //     this.setState({ loading: true })
+  //     getMappingViews(
+  //       props.ontology.name,
+  //       props.ontology.version,
+  //       this.props.mappingID,
+  //       this.loaded)
+  //   }
+  // }
 
   componentWillUnmount() {
     this._isMounted = false

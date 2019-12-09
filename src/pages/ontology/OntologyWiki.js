@@ -13,48 +13,25 @@ import OntologyDrawer from './OntologyDrawer';
 const { Content } = Layout;
 
 export default class OntologyWiki extends React.Component {
-    state = {
-        // collapsed: false,
-        visible: false
-    };
+    state = {}
 
     componentDidMount() {
         // console.log("WM " + this.props.match.params.entityID, this.props.match.params.predicateType)
-        this.setState({
-            current: this.props.match.params.entityID,
-            predicateType: this.props.match.params.predicateType,
-            visible: !this.props.match.params.entityID
-        })
+        if (this.props.match.params.entityID) {
+            this.setState({
+                current: this.props.match.params.entityID,
+                predicateType: this.props.match.params.predicateType,
+            })
+        }
     }
-
-    componentWillReceiveProps(props) {
-        // console.log("RP " + props.match.params.entityID, props.match.params.predicateType)
-        this.setState({
-            current: props.match.params.entityID,
-            predicateType: props.match.params.predicateType,
-            visible: !props.match.params.entityID
-
-        })
-    }
-
-    // toggle = () => {
-    //     this.setState({
-    //         collapsed: !this.state.collapsed,
-    //     });
-    // }
-
-    // toggle = () => {
-    //     this.setState({
-    //         visible: !this.state.visible,
-    //     });
-    // }
 
     onHandle = (entityID, predicateType) => {
-        this.setState({
-            current: entityID,
-            predicateType: predicateType,
-            visible: false
-        })
+        if (entityID !== this.state.current) {
+            this.setState({
+                current: entityID,
+                predicateType: predicateType
+            })
+        }
     }
 
     render() {
@@ -66,14 +43,14 @@ export default class OntologyWiki extends React.Component {
                         <div style={{ height: 'calc(100vh - 25px)', overflowY: 'auto', padding: 8 }}>
                             <OntologyDrawer
                                 ontology={this.props.ontology}
-                                visible={this.state.visible}
-                                onHandle={this.onHandle} />
-                            <Route exact path="/open/ontology/wiki/:predicateType?/:entityID?" render={(props) => (
-                                this.state.current !== props.match.params.entityID && this.state.current !== undefined ?
+                                onHandle={this.onHandle}
+                                visible={!this.props.match.params.entityID} />
+                            <Route exact path="/open/ontology/wiki/:predicateType?/:entityID?" render={(props) => {
+                                return this.state.current && this.state.predicateType ?
                                     <Redirect push to={"/open/ontology/wiki/" + this.state.predicateType + "/" + this.state.current} />
                                     : null
                                 // this.props.match.params.predicateType
-                            )} />
+                            }} />
                             <Route exact path={"/open/ontology/wiki/" + predicateTypes.c + "/:entityID"} render={(props) => (
                                 <ClassPage {...props} ontology={this.props.ontology} />
                             )} />

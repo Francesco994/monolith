@@ -11,10 +11,19 @@ export default class OntologyMenu extends React.Component {
         currMenu: ['info']
     }
 
-    componentWillReceiveProps(props) {
-        let currMenu = [props.select]
+    componentDidMount () {
+        let currMenu = [this.props.select]
         if (currMenu[0] === 'mapping') currMenu = ['mappings']
         this.setState({ currMenu: currMenu })
+    }
+
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.select !== this.props.select) {
+            let currMenu = [this.props.select]
+            if (currMenu[0] === 'mapping') currMenu = ['mappings']
+            this.setState({ currMenu: currMenu })
+        }
     }
 
     render() {

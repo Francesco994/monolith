@@ -1,12 +1,12 @@
 import React from 'react';
-import { Drawer, Tabs, Spin, Button } from 'antd';
+import { Drawer, Tabs, Button } from 'antd';
 import SearchTree from '../components/FastSearchTree';
 
 import { getOntologyVersionHierarchy } from '../../api/MastroApi'
 
 export default class OntologyDrawer extends React.Component {
     _isMounted = false;
-    state = { data: [], loading: true, currentTab: 'c', visible: false }
+    state = { data: [], loading: true, currentTab: 'c', visible: true }
 
     componentDidMount() {
         this._isMounted = true;
@@ -20,15 +20,6 @@ export default class OntologyDrawer extends React.Component {
 
     }
 
-    componentWillReceiveProps(props) {
-        // console.log(this.props)
-        this.setState({ loading: true, visible: this.props.visible })
-        getOntologyVersionHierarchy(
-            props.ontology.name,
-            props.ontology.version,
-            this.loaded)
-    }
-
     componentWillUnmount() {
         this._isMounted = false
     }
@@ -39,8 +30,13 @@ export default class OntologyDrawer extends React.Component {
 
     toggle = () => {
         this.setState({
-            visible: !this.state.visible,
+            visible: !this.state.visible
         });
+    }
+
+    onHandle = (...args) => {
+        this.props.onHandle(...args)
+        this.setState({visible: false})
     }
 
     tabClick = (key) => {
@@ -49,7 +45,7 @@ export default class OntologyDrawer extends React.Component {
 
     render() {
         return (
-            this.state.loading ? <div style={{ display: 'flex', justifyContent: 'center', paddingTop: 36 }}> <Spin size='large' /></div> :
+            this.state.loading ? <Button type='primary' style={{ float: 'right', margin: 8 }} icon='loading' /> :
                 <div>
                     <Button type='primary' style={{ float: 'right', margin: 8 }} icon='menu-fold' onClick={this.toggle} />
                     <Drawer title='Ontology Entities' visible={this.state.visible} onClose={this.toggle} width={'50vw'}>
@@ -58,25 +54,25 @@ export default class OntologyDrawer extends React.Component {
                                 {this.state.currentTab === 'c' && <SearchTree
                                     classes
                                     data={this.state.data}
-                                    onHandle={this.props.onHandle} />}
+                                    onHandle={this.onHandle} />}
                             </Tabs.TabPane>
                             <Tabs.TabPane tab='Object Properties' key='op'>
                                 {this.state.currentTab === 'op' && <SearchTree
                                     objectProperties
                                     data={this.state.data}
-                                    onHandle={this.props.onHandle} />}
+                                    onHandle={this.onHandle} />}
                             </Tabs.TabPane>
                             <Tabs.TabPane tab='Data Properties' key='dp'>
                                 {this.state.currentTab === 'dp' && <SearchTree
                                     dataProperties
                                     data={this.state.data}
-                                    onHandle={this.props.onHandle} />}
+                                    onHandle={this.onHandle} />}
                             </Tabs.TabPane>
                             <Tabs.TabPane tab='All' key='a'>
                                 {this.state.currentTab === 'a' && <SearchTree
                                     all
                                     data={this.state.data}
-                                    onHandle={this.props.onHandle} />}
+                                    onHandle={this.onHandle} />}
                             </Tabs.TabPane>
                         </Tabs>
                     </Drawer>

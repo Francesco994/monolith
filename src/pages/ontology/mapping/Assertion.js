@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card } from 'antd'
+import { Card, Icon } from 'antd'
 import MappingBody from './MappingBody';
 import Entity from '../Entity'
 import ListMapItem from '../../components/ListMapItem';
@@ -27,21 +27,28 @@ export default class Assertion extends React.Component {
             },
         ]
         return (
-            <Card className='mappingAssertion' title={this.props.entity === true &&
-                <Entity entity={this.props.assertion.currentEntity} />
-            } actions={!this.props.entity && [
-                <span onClick={
-                    () => this.props.edit(this.props.assertion)
-                }>
-                    edit
-                </span>,
-                <span onClick={
-                    () => this.props.delete(this.props.assertion)
-                }>
-                    delete
-                </span>
-            ]}>
-                <ListMapItem data={data} />
+            <Card className='mappingAssertion'>  
+                <Card.Meta key={this.props.assertion}
+                    title={this.props.entity === true
+                        ? <Entity entity={this.props.assertion.currentEntity} />
+                        : <div></div>
+                    }
+                    description={<ListMapItem data={data} />}
+                />
+                {!this.props.entity && 
+                    <div className='card-bottom'>
+                        <div></div>
+                        <div className='card-actions'>
+                            <span onClick={() => this.props.edit(this.props.assertion)}>
+                                <Icon type="edit" theme="filled"/>
+                            </span>
+                            <span className='delete-icon' style={{paddingLeft: 12}} 
+                                onClick={() => this.props.delete(this.props.assertion)}>
+                                <Icon type="delete" theme="filled"/>
+                            </span>
+                        </div>
+                    </div>
+                }
             </Card>
         );
     }

@@ -24,21 +24,20 @@ export default class KnowledgeGraphAddCloseTabs extends React.Component {
     }
   }
 
-  componentWillReceiveProps(props) {
-    // OPEN SELECTED TAB
-    for (let i = 0; i < props.catalog.length; i++) {
-      if (props.catalog[i].queryID === props.open) {
-        this.add(props.catalog[i])
-        break
+  componentDidUpdate(prevProps) {
+    if (prevProps.open !== this.props.open) {
+      let props = this.props
+      // OPEN SELECTED TAB
+      for (let i = 0; i < props.catalog.length; i++) {
+        if (props.catalog[i].queryID === props.open) {
+          this.add(props.catalog[i])
+          break
+        }
       }
     }
-
-  }
-
-  componentDidUpdate(oldProps) {
     //CHECK FOR DELETION AND SET DIRTY TABS
-    if (oldProps.catalog)
-      for (let oq of oldProps.catalog) {
+    if (prevProps.catalog)
+      for (let oq of prevProps.catalog) {
         let found = false;
         for (let q of this.props.catalog) {
           if (oq.queryID === q.queryID) {

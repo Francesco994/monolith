@@ -50,11 +50,12 @@ export default class SearchTree extends React.Component {
       this.loaded)
   }
 
-  componentWillReceiveProps(props) {
-    getOntologyVersionHierarchy(
-      props.ontology.name,
-      props.ontology.version,
-      this.loaded)
+  componentDidUpdate(props) {
+    if(props !== this.props)
+      getOntologyVersionHierarchy(
+        props.ontology.name,
+        props.ontology.version,
+        this.loaded)
   }
 
   loaded = (mastroData) => {

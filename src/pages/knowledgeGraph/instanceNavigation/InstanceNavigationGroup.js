@@ -51,6 +51,7 @@ export default class InstanceNavigation extends React.Component {
 
     state = {
         data: {},
+        resource: null,
         loading: true
     }
 
@@ -59,9 +60,13 @@ export default class InstanceNavigation extends React.Component {
         getInstancePage(this.props.kg.kgIri, resource, this.loaded)
     }
 
-    componentWillReceiveProps() {
+    componentDidUpdate(prevProps, prevState) {
         resource = getUrlVars()["iri"];
-        getInstancePage(this.props.kg.kgIri, resource, this.loaded)
+        if (prevState.resource !== resource) {
+            this.setState({loading: true})
+            this.setState({resource})
+            getInstancePage(this.props.kg.kgIri, resource, this.loaded)
+        }
     }
 
     loaded = (data) => {

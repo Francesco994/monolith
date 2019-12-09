@@ -25,10 +25,9 @@ export default class ClassPage extends React.Component {
                 this.loaded)
         }
     }
-
-    componentWillReceiveProps(props) {
-        // console.log(props)
-        if (props.match.params.entityID !== undefined) {
+    componentDidUpdate(prevProps) {
+        let props = this.props
+        if (props.match.params.entityID && prevProps.match.params.entityID !== props.match.params.entityID) {
             this.setState({ loading: true })
             getClassPage(
                 props.ontology.name,

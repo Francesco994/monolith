@@ -29,11 +29,13 @@ export default class MastroResultsTable extends React.Component {
         this.startPolling()
     }
 
-    componentWillReceiveProps(props) {
-        this.polling()
-        const pagination = { ...this.state.pagination };
-        pagination.total = props.numberOfResults;
-        this.setState({ pagination: pagination })
+    componentDidUpdate(prevProps) {
+        if (prevProps.numberOfResults !== this.props.numberOfResults) {
+            this.polling()
+            const pagination = { ...this.state.pagination };
+            pagination.total = this.props.numberOfResults;
+            this.setState({ pagination: pagination })
+        }
     }
 
     componentWillUnmount() {

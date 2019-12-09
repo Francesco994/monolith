@@ -195,10 +195,10 @@ export default class MainLayout extends React.Component {
             {/* </div> */}
           </Content>
           <Footer style={{ padding: '2px', textAlign: 'center' }}>
-            <div>
-              <span>Monolith {packageJson.version} </span>
+            <div style={{color: 'var(--white)'}}>
+              <span>Monolith {packageJson.version} | </span>
               <a href="http://www.obdasystems.com" target="_blank" rel="noopener noreferrer">OBDA Systems</a>
-              <span> © 2018 - 2019</span>
+              <span> © 2018 - {new Date().getFullYear()}</span>
             </div>
           </Footer>
         </Layout>
