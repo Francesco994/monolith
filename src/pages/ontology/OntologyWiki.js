@@ -40,7 +40,7 @@ export default class OntologyWiki extends React.Component {
             <Layout>
                 <Layout >
                     <Content >
-                        <div style={{ height: 'calc(100vh - 25px)', overflowY: 'auto', padding: 8 }}>
+                        <div style={{ height: 'calc(100vh - 61px)', overflowY: 'auto', padding: 8 }}>
                             <OntologyDrawer
                                 ontology={this.props.ontology}
                                 onHandle={this.onHandle}

@@ -6,7 +6,7 @@ import { Layout } from 'antd';
 import MainMenu from './MainMenu'
 import Home from './Home'
 import LoadOntologies from '../ontology/LoadOntologies'
-import CurrentOntology from '../ontology/CurrentOntology';
+import CurrentOntology from '../ontology/OntologyLayout';
 import Settings from '../settings/Settings';
 import UnderConstruction from '../components/UnderConstruction';
 import LoadKnowledgeGraphs from '../knowledgeGraph/LoadKnowledgeGraphs';
@@ -39,7 +39,7 @@ export default class MainLayout extends React.Component {
     }));
   }
 
-  openCurrentOntology(ontologyID, versionID) {
+  openCurrentOntology(ontologyID, versionID, ontologyVersions) {    
     const current = {
       name: ontologyID,
       version: versionID
@@ -61,7 +61,8 @@ export default class MainLayout extends React.Component {
         ontologies: openOntologies,
         kgs: state.open.kgs,
         dss: state.open.dss
-      }
+      },
+      ontologyVersions
     }))
   }
 
@@ -177,7 +178,12 @@ export default class MainLayout extends React.Component {
             <Route path="/open/ontology/:menu" render={(props) => (
               this.state.current === undefined ?
                 <Redirect to="/" /> :
-                <CurrentOntology {...props} ontology={this.state.current} />
+                <CurrentOntology 
+                  {...props} 
+                  ontology={this.state.current}
+                  ontologyVersions={this.state.ontologyVersions}
+                  open={this.openCurrentOntology.bind(this)}
+                />
             )
             } />
 
@@ -194,8 +200,8 @@ export default class MainLayout extends React.Component {
             <Route path="/settings/:tab" render={(props) => <Settings {...props} />} />
             {/* </div> */}
           </Content>
-          <Footer style={{ padding: '2px', textAlign: 'center' }}>
-            <div style={{color: 'var(--white)'}}>
+          <Footer>
+            <div>
               <span>Monolith {packageJson.version} | </span>
               <a href="http://www.obdasystems.com" target="_blank" rel="noopener noreferrer">OBDA Systems</a>
               <span> © 2018 - {new Date().getFullYear()}</span>

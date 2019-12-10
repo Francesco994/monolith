@@ -40,14 +40,14 @@ export default class OntologiesList extends React.Component {
 
     componentDidMount() {
         this.setState({
-            data: this.props.data.sort(this.sortByDate)
+            data: this.props.data.sort(this.sortByDateD)
         })
     }
 
     componentDidUpdate(prevProps) {
         if (prevProps.data !== this.props.data)
             this.setState({
-                data: this.props.data.sort(this.sortByDate)
+                data: this.props.data.sort(this.sortByDateD)
             })
     }
 
@@ -97,12 +97,12 @@ export default class OntologiesList extends React.Component {
                         Back
                     </Button>
                     <h1>Ontologies</h1>
-                    <Select style={{ width: 205 }} defaultValue='date' onChange={this.changeSort} >
-                        <Option value='date' >
-                            Sort by date (ascending)
-                        </Option>
+                    <Select style={{ width: 205 }} defaultValue='dateD' onChange={this.changeSort} >
                         <Option value='dateD' >
                             Sort by date (descending)
+                        </Option>
+                        <Option value='date' >
+                            Sort by date (ascending)
                         </Option>
                         <Option value='name' >
                             Sort by name

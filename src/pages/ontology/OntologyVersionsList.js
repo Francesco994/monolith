@@ -50,7 +50,7 @@ export default class OntologyVersionsList extends React.Component {
 
     componentDidMount() {
         this.setState({
-            data: this.getData(this.props.data).sort(this.sortByDate)
+            data: this.getData(this.props.data).sort(this.sortByDateD)
         })
     }
 
@@ -101,16 +101,16 @@ export default class OntologyVersionsList extends React.Component {
                         Back
                     </Button>
                     <h1 style={{ maxWidth: 700, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{`Ontology Versions for ${this.props.current}`}</h1>
-                    <Select style={{ width: 205 }} defaultValue='date' onChange={this.changeSort}>
-                        <Option value='date' >
-                            Sort by date (ascending)
-                        </Option>
+                    <Select style={{ width: 205 }} defaultValue='dateD' onChange={this.changeSort}>
                         <Option value='dateD' >
                             Sort by date (descending)
                         </Option>
+                        <Option value='date' >
+                            Sort by date (ascending)
+                        </Option>
                         <Option value='name' >
                             Sort by version
-                    </Option>
+                        </Option>
                     </Select>
                 </div>
                 <List
@@ -123,7 +123,7 @@ export default class OntologyVersionsList extends React.Component {
                         item ? (
                             <List.Item key={item.versionID}>
                                 <Card hoverable>
-                                    <NavLink to={"/open/ontology/info/"} onClick={() => this.props.open(item.ontologyID, item.versionID)}>
+                                    <NavLink to={"/open/ontology/info/"} onClick={() => this.props.open(item.ontologyID, item.versionID, this.state.data)}>
                                         <Card.Meta key={item.versionID}
                                             avatar={<img alt="" src={item.avatar} />}
                                             title={

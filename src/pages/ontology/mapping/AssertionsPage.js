@@ -27,18 +27,17 @@ export default class AssertionsPage extends React.Component {
         }
     }
 
-    // componentDidUpdate(prevProps) {
-
-    //     if (props.current !== undefined) {
-    //         this.setState({ loading: true })
-    //         getMappingAssertion(
-    //             props.ontology.name,
-    //             props.ontology.version,
-    //             props.mappingID,
-    //             props.current,
-    //             this.loaded)
-    //     }
-    // }
+    componentDidUpdate(prevProps) {
+        if (prevProps.current !== this.props.current) {
+            this.setState({ loading: true })
+            getMappingAssertion(
+                this.props.ontology.name,
+                this.props.ontology.version,
+                this.props.mappingID,
+                this.props.current,
+                this.loaded)
+        }
+    }
 
     componentWillUnmount() {
         this._isMounted = false
@@ -86,7 +85,7 @@ export default class AssertionsPage extends React.Component {
             <div>
                 <div style={{ textAlign: 'center' }}>
                     <h1>
-                        {this.state.data.length} mappings for <Entity
+                        {this.state.data.length} mapping{this.state.data.length !== 1 ? 's': ''} for <Entity
                             entity={this.state.currentEntity}
                             predicateType={this.state.currentEntity.entityType} />
                     </h1>
@@ -94,7 +93,7 @@ export default class AssertionsPage extends React.Component {
                         <h3>{this.state.currentEntity.entityPrefixIRI}</h3>
                     </Popover>
                 </div>
-                <div style={{ height: 'calc(100vh - 163px)', overflowY: 'auto', }}>
+                <div style={{ height: 'calc(100vh - 231px)', overflowY: 'auto', }}>
                     <AssertionsList
                         ontology={this.props.ontology}
                         mappingID={this.props.mappingID}

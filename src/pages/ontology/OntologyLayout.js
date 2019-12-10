@@ -1,12 +1,12 @@
 import React from 'react';
 import { Route } from 'react-router-dom'
-import { Layout, Icon } from 'antd';
+import { Layout, Icon, PageHeader } from 'antd';
 import OntologyMenu from './OntologyMenu'
 import OntologyInfo from './OntologyInfo';
 import OntologyWiki from './OntologyWiki';
 import MastroSPARQLEndpoint from './query/MastroSPARQLEndpoint';
 import LoadMappings from './mapping/LoadMappings';
-import CurrentMapping from './mapping/CurrentMapping';
+import CurrentMapping from './mapping/MappingLayout';
 import Graphol from './Grapholscape';
 import UnderConstruction from '../components/UnderConstruction';
 import { FaChevronCircleLeft, FaChevronCircleRight } from 'react-icons/fa';
@@ -26,23 +26,27 @@ export default class CurrentOntology extends React.Component {
     render() {
         return (
             <Layout style={{ height: 'calc(100vh - 25px)' }}>
-                <Sider
-                    // width={200} 
-                    className='ontologyMenu'
-                    collapsed={this.state.collapsed}
-                >
-                    <OntologyMenu select={this.props.match.params.menu} />
-                    <div>
-                        <Icon
-                            className="ontologyTrigger"
-                            style={{ display: "inherit", cursor: "pointer", color: 'white', padding: 4 }}
-                            component={this.state.collapsed ? FaChevronCircleRight : FaChevronCircleLeft}
-                            onClick={this.toggle}
-                        />
-                    </div>
-
-                </Sider>
+                <PageHeader 
+                    title={this.props.ontology.name}
+                    subTitle={this.props.ontology.version} 
+                    ghost={false}/>
                 <Layout>
+                    <Sider
+                        // width={200} 
+                        className='ontologyMenu'
+                        collapsed={this.state.collapsed}
+                    >
+                        <OntologyMenu select={this.props.match.params.menu} />
+                        <div>
+                            <Icon
+                                className="ontologyTrigger"
+                                style={{ display: "inherit", cursor: "pointer", color: 'white', padding: 4 }}
+                                component={this.state.collapsed ? FaChevronCircleRight : FaChevronCircleLeft}
+                                onClick={this.toggle}
+                            />
+                        </div>
+
+                    </Sider>
                     <Content >
                         <div>
                             <Route path="/open/ontology/info" render={(props) =>

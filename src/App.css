@@ -18,6 +18,7 @@ code * {
 :root {
   --highlight-gray: #7a818b;
   --highlight: #f8a915;
+  --orange: #FC9E4F;
   --light: #365474;
   --medium: #2C445E;
   --medium-dark: #182634;
@@ -161,6 +162,7 @@ td {
 }
 
 .card-bottom {
+  margin-top: 5px;
   display: flex;
   justify-content: space-between;
   color: var(--highlight-gray)
@@ -388,6 +390,7 @@ a, .ant-card-head-title, .ant-tabs-tab, .link {
 
 a:hover, .link:hover {
   color: var(--highlight) !important;
+  transition: .5s;
 }
 
 .link {
@@ -431,9 +434,28 @@ a:hover, .link:hover {
 .ant-drawer-header, .ant-modal-header {
   border-color: var(--highlight)
 }
+/* 
+.ant-page-header-heading {
+  display: flex;
+  justify-content: flex-end; 
+} */
+
+.ant-page-header {
+  padding: 2px 2px 2px 24px;
+  text-align: center;
+  background-color: var(--medium) !important;
+  color: var(--white)
+}
+
+.ant-page-header-heading-title {
+  color: var(--white);
+}
 
 .ant-layout-footer {
-  background-color: var(--highlight-gray) !important
+  padding: 2px;
+  text-align: center;
+  background-color: var(--highlight-gray) !important;
+  color: var(--white)
 }
 
 .ant-popover-inner-content, .ant-popover-arrow {
@@ -536,7 +558,11 @@ a:hover, .link:hover {
 
 /* TEXT COLOR */
 
-h1, h1 a, h3, .ant-divider-inner-text, .ant-table-row, .results, .ant-checkbox-wrapper, .ant-card-meta-title, .ant-card-meta-description, .ant-pagination-item-ellipsis, .ant-progress-text, .ant-select-selection, .ant-select-arrow, .ant-select-dropdown-menu-item, .ant-card-actions>li, .ant-drawer-title, .ant-form-item-label>label, .ant-table-thead>tr>th, .ant-modal-body, .ant-modal-close, .ant-input, .ant-tabs-tab-prev-icon, .ant-tabs-tab-next-icon, .ant-drawer-close, .search, .ant-modal-header .ant-modal-title {
+h1, .title {
+  color: var(--orange);
+}
+
+h1 a, h3, .ant-divider-inner-text, .ant-table-row, .results, .ant-checkbox-wrapper, .ant-card-meta-title, .ant-card-meta-description, .ant-pagination-item-ellipsis, .ant-progress-text, .ant-select-selection, .ant-select-arrow, .ant-select-dropdown-menu-item, .ant-card-actions>li, .ant-drawer-title, .ant-form-item-label>label, .ant-table-thead>tr>th, .ant-modal-body, .ant-modal-close, .ant-input, .ant-tabs-tab-prev-icon, .ant-tabs-tab-next-icon, .ant-drawer-close, .search, .ant-modal-header .ant-modal-title {
   color: var(--white) !important;
 }
 

@@ -21,7 +21,7 @@ export default class KnowledgeGraphInstances extends React.Component {
         for (let i = 0; i < receivedData.length; i++) {
             data.push({
                 key: i,
-                value: <NavLink to={'/open/kg/navigation/?iri=' + receivedData[i]}>{receivedData[i]}</NavLink>
+                value: <NavLink to={'/open/kg/navigation/?iri=' + receivedData[i].iri_short}>{receivedData[i].label}</NavLink>
             })
         }
         this.setState({ data })

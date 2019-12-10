@@ -12,6 +12,11 @@ export default class KnowledgeGraphMenu extends React.Component {
         currMenu: ['info']
     }
 
+    componentDidMount() {
+        let currMenu = [this.props.select]
+        this.setState({ currMenu: currMenu })
+    }
+
     componentDidUpdate(prevProps) {
         if (prevProps.select !== this.props.select) {
             let currMenu = [this.props.select]

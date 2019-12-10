@@ -49,7 +49,7 @@ class NormalLoginForm extends React.Component {
         </FormItem>
         <FormItem>
           {getFieldDecorator('mastroUrl', {
-            initialValue: localStorage.getItem('mastroUrl'),
+            initialValue: localStorage.getItem('mastroUrl') || 'localhost',
             rules: [{ required: true, message: 'Please input Mastro Location!' }],
           })(
             <Input prefix={<Icon type="medium" style={{ color: 'rgba(0,0,0,.25)' }} />} type="medium" placeholder="Mastro URL" />

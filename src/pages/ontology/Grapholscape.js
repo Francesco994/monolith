@@ -33,7 +33,7 @@ export default class Graphol extends React.Component {
     render() {
         return (
             <div style={{ borderRadius: 10, border: 'solid white 10px', background: 'white', margin: 8 }}>
-                <div id="grapholscape-container" style={{ position: "relative", height: "calc(100vh - 61px)" }} />
+                <div id="grapholscape-container" style={{ position: "relative", height: "calc(100vh - 97px)" }} />
             </div>
         )
     }

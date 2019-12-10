@@ -48,7 +48,7 @@ export default class LoadMappings extends React.Component {
                         <h1>Mappings</h1>
                     </div>
                     <List
-                        style={{ height: 'calc(100vh - 99px)', overflow: 'auto' }}
+                        style={{ height: 'calc(100vh - 135px)', overflow: 'auto' }}
                         className='bigCards'
                         rowKey="mappingsView"
                         grid={{ gutter: 12, lg: 3, md: 2, sm: 1, xs: 1 }}

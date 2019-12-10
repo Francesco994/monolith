@@ -62,7 +62,7 @@ class DrawerForm extends React.Component {
         return (
             this.state.loading ? <div style={{ display: 'flex', justifyContent: 'center', paddingTop: 36 }}> <Spin size='large' /></div> :
                 <div>
-                    <Button type='primary' style={{ height: 199, width: '100%' }} onClick={this.showDrawer}>
+                    <Button type='primary' style={{ height: 205, width: '100%' }} onClick={this.showDrawer}>
                         <Icon type="plus" /> Add Mapping
                     </Button>
                     <Drawer

@@ -102,7 +102,7 @@ export default class UploadFile extends React.Component {
       this.props.type === 'kg' ?
         'Upload RDF file' :
         'Upload Ontology Version'
-    let h = 199
+    let h = 205
     return (
       <div style={{ height: h, width: '100%' }}>
         <Upload className='bigUpload' beforeUpload={beforeUpload.bind(this)} fileList={[]}>

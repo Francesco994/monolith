@@ -180,16 +180,7 @@ export default class ImportKnowledgeGraphRDF extends React.Component {
                                         hoverable
                                         style={this.state.selected.has(item.fileName) ?
                                             { backgroundColor: 'var(--highlight-gray)' } : {}}
-                                        actions={[
-                                            <span
-                                                onClick={() => this.singleImport(item.fileName)}>
-                                                import
-                                            </span>,
-                                            <span
-                                                onClick={() => this.singleDelete(item.fileName)}>
-                                                delete
-                                            </span>
-                                        ]}>
+                                        >
                                         <div
                                             onClick={() => this.selectCard(item.fileName)}>
                                             <div>
@@ -203,11 +194,23 @@ export default class ImportKnowledgeGraphRDF extends React.Component {
                                                     description={item.imported &&
                                                         `Imported ${item.numberOfTriples} in ${item.importingTime} ms`}
                                                 />
-                                                <div className='ant-card-meta-description'>
-                                                    {moment(item.uploadDate).format(dateFormat)}
-                                                </div>
                                             </div>
                                         </div>
+                                        <div className='card-bottom'>
+                                        <div>
+                                            {moment(item.uploadDate).format(dateFormat)}
+                                        </div>
+                                        <div className='card-actions'>
+                                            <span
+                                                onClick={() => this.singleImport(item.fileName)}>
+                                                <Icon type="import" />
+                                            </span>
+                                            <span className='delete-icon' style={{paddingLeft: 12}} 
+                                                onClick={() => this.singleDelete(item.fileName)}>
+                                                <Icon type="delete" theme="filled" />
+                                            </span>
+                                        </div>
+                                    </div>
                                     </Card>
                                 </List.Item>
                             ) : (
