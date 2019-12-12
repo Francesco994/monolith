@@ -48,7 +48,7 @@ export function login(username, password, mastroUrl, callback) {
         }
         return
     }
-    if (mastroUrl === 'localhost') mastroUrl = 'http://localhost:8080/mws/rest/mwsx'
+    if (mastroUrl === 'localhost') mastroUrl = 'http://localhost:8989/mws/rest/mwsx'
     const url = mastroUrl + '/login'
     const method = 'GET'
     const h = {
