@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, Row, Col } from 'antd';
+import { Layout, Row, Col, Icon } from 'antd';
 import ClassPage from './ClassPage';
 import ObjectPropertyPage from './ObjectPropertyPage';
 import DataPropertyPage from './DataPropertyPage';
@@ -9,7 +9,8 @@ import { Route, Redirect } from 'react-router'
 import { predicateTypes } from '../../utils/utils'
 import IndividualPage from './IndividualPage';
 import OntologyTree from './OntologyTree';
-
+import { NavLink } from 'react-router-dom'
+import { FaBezierCurve } from 'react-icons/fa';
 const { Content } = Layout;
 
 export default class OntologyWiki extends React.Component {
@@ -25,11 +26,12 @@ export default class OntologyWiki extends React.Component {
         }
     }
 
-    onHandle = (entityID, predicateType) => {
+    onHandle = (entityID, predicateType, entityIRI) => {
         if (entityID !== this.state.current) {
             this.setState({
                 current: entityID,
-                predicateType: predicateType
+                predicateType: predicateType,
+                entityIRI
             })
         }
     }
@@ -49,6 +51,11 @@ export default class OntologyWiki extends React.Component {
                                         visible={!this.props.match.params.entityID} />
                                 </Col>
                                 <Col span={18}  style={{ height: 'calc(100vh - 50px)', overflow: 'auto', padding: 8 }}>
+                                    {this.state.entityIRI && <NavLink 
+                                        style={{float: 'right', fontSize: 20}}
+                                        to={`/open/ontology/graphol/?iri=${encodeURIComponent(this.state.entityIRI)}`}>
+                                        <Icon component={FaBezierCurve} />
+                                    </NavLink>}
                                     <Route exact path="/open/ontology/wiki/:predicateType?/:entityID?" render={(props) => {
                                         return this.state.current && this.state.predicateType ?
                                             <Redirect push to={"/open/ontology/wiki/" + this.state.predicateType + "/" + this.state.current} />

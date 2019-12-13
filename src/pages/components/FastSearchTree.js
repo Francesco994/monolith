@@ -14,6 +14,7 @@ function convertData(node, arr, predicateType) {
     arr.push({
       label: renderEntity(item.entity),
       entityID: item.entity.entityID,
+      entityIRI: item.entity.entityPrefixIRI,
       predicateType: predicateType,
       children: children,
       className: predicateType,
@@ -37,11 +38,11 @@ export default class SearchTree extends React.Component {
 
   onChange = (currentNode, selectedNodes) => {
     if(!this.props.all) {
-      this.props.onHandle(currentNode.entityID, currentNode.predicateType)
+      this.props.onHandle(currentNode.entityID, currentNode.predicateType, currentNode.entityIRI)
     }
     else if (currentNode._depth !== 0) {
       // console.log('onChange::', currentNode)
-      this.props.onHandle(currentNode.entityID, currentNode.predicateType)
+      this.props.onHandle(currentNode.entityID, currentNode.predicateType, currentNode.entityIRI)
       //simulate click away to close tree
       // var click = document.createEvent("MouseEvent")
       // click.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);

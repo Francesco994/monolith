@@ -5,6 +5,7 @@ import '../../lib/grapholscape/style/style.css'
 import '../../lib/material-icons/MaterialIcons.css'
 import '../../css/grapholscape.css'
 import { getGraphol } from '../../api/MastroApi.js';
+import { getUrlVars } from '../../utils/utils.js'
 
 export default class Graphol extends React.Component {
     componentDidMount() {
@@ -28,6 +29,15 @@ export default class Graphol extends React.Component {
 
         let input = document.getElementById("search")
         input.onkeyup = () => search(input.value)
+        let predicate = getUrlVars().iri
+        let occurrences = graph.getOccurrencesOfPredicate(predicate);
+        
+        if (Object.keys(occurrences)[0]) {
+            selectedDiagram = Object.keys(occurrences)[0]
+            let focusOnNode = occurrences[selectedDiagram]
+            graph.centerOnNode(focusOnNode, selectedDiagram, 1.25)
+            search(predicate)
+        }
     }
 
     render() {
