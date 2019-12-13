@@ -17,7 +17,7 @@
   "author": "OBDA Systems",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^2.0.0",
+    "electron": "^2.0.8",
     "electron-packager": "^12.1.0",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.1",
