@@ -33,6 +33,7 @@ export default class MastroSPARQLTabPane extends React.Component {
         modalVisible: false,
         modalConfirmLoading: false,
         reasoning: true,
+        fullSPARQL: true,
         new: true,
         dirty: false,
         validID: true,
@@ -410,6 +411,10 @@ export default class MastroSPARQLTabPane extends React.Component {
         this.setState({ reasoning: !this.state.reasoning })
     }
 
+    toggleFullSPARQL = () => {
+        this.setState({ fullSPARQL: !this.state.fullSPARQL })
+    }
+
     render() {
         const enableRun = this.state.runningMappingIDs.includes(this.state.selectedMappingID)
 
@@ -463,6 +468,10 @@ export default class MastroSPARQLTabPane extends React.Component {
                         <span style={{ padding: '0px 10px', color: 'rgb(255, 255, 255, 0.75)' }}>Reasoning</span>
                         <Popover content='Toggle Reasoning'>
                             <Switch checked={this.state.reasoning} onClick={this.toggleReasoning} disabled={!enableRun} />
+                        </Popover>
+                        <span style={{ padding: '0px 10px', color: 'rgb(255, 255, 255, 0.75)' }}>Full SPARQL</span>
+                        <Popover content='Full SPARQL'>
+                            <Switch checked={this.state.fullSPARQL} onClick={this.toggleFullSPARQL} disabled={!enableRun} />
                         </Popover>
                     </div>
                     <Button

@@ -269,6 +269,10 @@ td {
   height: 100vh
 }
 
+.ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab {
+  border: unset;
+}
+
 .ant-layout, .SPARQLTab, .ant-tabs.ant-tabs-card>.ant-tabs-bar .ant-tabs-tab-active {
   background-color: var(--dark) !important;
   border-radius: 0px;
