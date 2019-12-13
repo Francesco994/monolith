@@ -124,7 +124,7 @@ export default class ObjectPropertyPage extends React.Component {
                             </List.Item>
                         )}
                     />
-                    <div style={{ paddingBottom: '16px' }}>
+                    <div>
                         <OntologyTabs
                             titles={
                                 [

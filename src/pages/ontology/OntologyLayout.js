@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route } from 'react-router-dom'
-import { Layout, Icon, PageHeader } from 'antd';
+import { Layout, Icon } from 'antd';
 import OntologyMenu from './OntologyMenu'
 import OntologyInfo from './OntologyInfo';
 import OntologyWiki from './OntologyWiki';
@@ -26,10 +26,6 @@ export default class CurrentOntology extends React.Component {
     render() {
         return (
             <Layout style={{ height: 'calc(100vh - 25px)' }}>
-                <PageHeader 
-                    title={this.props.ontology.name}
-                    subTitle={this.props.ontology.version} 
-                    ghost={false}/>
                 <Layout>
                     <Sider
                         // width={200} 
@@ -48,6 +44,11 @@ export default class CurrentOntology extends React.Component {
 
                     </Sider>
                     <Content >
+                        <div className="page-header">
+                            {this.props.ontology.name}
+                            <span style={{ color: 'var(--white)', fontWeight: 'bold' }}> > </span>
+                            {this.props.ontology.version}
+                        </div>
                         <div>
                             <Route path="/open/ontology/info" render={(props) =>
                                 <OntologyInfo {...props} ontology={this.props.ontology} />} />

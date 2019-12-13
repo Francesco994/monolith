@@ -153,12 +153,12 @@ export default class IndividualPage extends React.Component {
                         </Popover>
                     </div>
                     <div>
-                        <div style={{ paddingBottom: '16px' }}>
+                        <div style={{  }}>
                             <Card title="Description" className='description'>
                                 <ListItem label data={this.state.data.classDescriptions} />
                             </Card>
                         </div>
-                        <div style={{ paddingBottom: '16px' }}>
+                        <div style={{  }}>
                             {tabs.shift()}
                         </div>
                         <List

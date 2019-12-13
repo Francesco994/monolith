@@ -88,7 +88,7 @@ export default class SQLViewsPage extends React.Component {
                     </div>
                 }
             </Card>,
-            <Divider>{"Ontology Mappings"}</Divider>,
+            <Divider></Divider>,
             <AssertionsList entity list={data.mappingAssertions} />,
             <Divider>{'Dependencies'}</Divider>,
             <Dependencies dependencies={data.mappingDependencies} />
@@ -101,7 +101,7 @@ export default class SQLViewsPage extends React.Component {
                 <div style={{ textAlign: 'center' }}>
                     <h1>{data.sqlView.sqlViewID}</h1>
                 </div>
-                <div style={{ height: 'calc(100vh - 179px)', overflowY: 'auto', padding: '0px 8px' }}>
+                <div style={{ height: 'calc(100vh - 152px)', overflowY: 'auto', padding: '0px 8px' }}>
                     <List
                         grid={{ column: 1 }}
                         dataSource={elements}

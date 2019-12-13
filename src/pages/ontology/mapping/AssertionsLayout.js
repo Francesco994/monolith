@@ -1,7 +1,7 @@
 import React from 'react';
-import { Layout } from 'antd';
+import { Layout, Row, Col } from 'antd';
 import AssertionsPage from './AssertionsPage'
-import OntologyDrawer from '../OntologyDrawer';
+import OntologyTree from '../OntologyTree';
 
 const {
     Content,
@@ -16,7 +16,12 @@ export default class AssertionsPane extends React.Component {
 
     onHandle = (entityID, predicateType) => {
         this.setState({
-            current: entityID,
+            current: <AssertionsPage
+                ontology={this.props.ontology}
+                mappingID={this.props.mappingID}
+                current={entityID}
+                predicateType={this.state.predicateType}
+            />,
             predicateType,
             visible: false
         })
@@ -31,7 +36,7 @@ export default class AssertionsPane extends React.Component {
                     </div>
 
                 </Header> */}
-                
+
                 {/* <Sider
                     // width={200} 
                     style={{ background: '#fff' }}
@@ -41,19 +46,17 @@ export default class AssertionsPane extends React.Component {
                 </Sider> */}
                 <Layout>
                     <Content >
-                        <div>
-                        <OntologyDrawer
-                            ontology={this.props.ontology}
-                            visible={this.state.visible}
-                            onHandle={this.onHandle} />
-                            {this.state.current !== null &&
-                                <AssertionsPage
+                        <Row>
+                            <Col span={6} style={{ padding: 10, backgroundColor: 'var(--medium-dark)', height: 'calc(100vh - 98px)' }}>
+                                <OntologyTree
                                     ontology={this.props.ontology}
-                                    mappingID={this.props.mappingID}
-                                    current={this.state.current}
-                                    predicateType={this.state.predicateType}
-                                />}
-                        </div>
+                                    visible={this.state.visible}
+                                    onHandle={this.onHandle} />
+                            </Col>
+                            <Col span={18}>
+                                {this.state.current}
+                            </Col>
+                        </Row>
                     </Content>
                 </Layout>
             </Layout>

@@ -2,8 +2,8 @@ import React from 'react';
 import { Route, NavLink } from 'react-router-dom'
 import { Layout, Menu } from 'antd';
 import MappingInfo from './MappingInfo';
-import AssertionsPane from './AssertionsPane';
-import SQLViewsPane from './SQLViewsPane';
+import AssertionsPane from './AssertionsLayout';
+import SQLViewsPane from './SQLViewsLayout';
 
 const {
     Header, Content,

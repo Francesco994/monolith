@@ -23,6 +23,7 @@ code * {
   --medium: #2C445E;
   --medium-dark: #182634;
   --dark: #121C27;
+  --black: #031927;
   --red: #aa2d2f;
   --white: #ffffffd5;
   --disabled: #8894a3;
@@ -434,21 +435,16 @@ a:hover, .link:hover {
 .ant-drawer-header, .ant-modal-header {
   border-color: var(--highlight)
 }
-/* 
-.ant-page-header-heading {
-  display: flex;
-  justify-content: flex-end; 
-} */
 
-.ant-page-header {
-  padding: 2px 2px 2px 24px;
-  text-align: center;
-  background-color: var(--medium) !important;
-  color: var(--white)
+.page-header {
+  padding: 2px 2px 2px 10px;
+  /* text-align: center; */
+  background-color: var(--black) !important;
+  color: var(--highlight)
 }
 
-.ant-page-header-heading-title {
-  color: var(--white);
+.ant-layout-header {
+  height: auto;
 }
 
 .ant-layout-footer {
@@ -523,8 +519,12 @@ a:hover, .link:hover {
   border-color: transparent
 }
 
-.ant-tabs.ant-tabs-card>.ant-tabs-bar .ant-tabs-tab {
+.ant-tabs-bar {
   border-color: transparent
+}
+
+.ant-tabs .ant-tabs-small-bar .ant-tabs-tab {
+  padding: 8px 0px;
 }
 
 .ant-select-dropdown-menu-item {

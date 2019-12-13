@@ -14,15 +14,12 @@ export default class Assertion extends React.Component {
             this.props.assertion.mappingHead.firstArg;
         const data = [
             {
-                mapKey: "Description",
                 mapValue: this.props.assertion.mappingDescription
             },
             {
-                mapKey: "Head",
                 mapValue: <code>{head}</code>
             },
             {
-                mapKey: "Body",
                 mapValue: <MappingBody body={this.props.assertion.mappingBody} />
             },
         ]

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, Drawer, Button } from 'antd';
+import { Layout, Drawer, Button, Row, Col } from 'antd';
 import SearchList from '../../components/FastSearchList';
 import SQLViewsPage from './SQLViewsPage';
 import AddSQLView from './AddSQLView';
@@ -10,7 +10,7 @@ const {
 
 export default class SQLViewsPane extends React.Component {
     state = {
-        current: null,
+        current: '',
         visible: true,
         visibleEdit: false,
         sqlView: null
@@ -35,7 +35,13 @@ export default class SQLViewsPane extends React.Component {
 
     onHandle = (viewID) => {
         this.setState({
-            current: viewID,
+            current: <SQLViewsPage
+                ontology={this.props.ontology}
+                mappingID={this.props.mappingID}
+                viewID={viewID}
+                edit={this.toggleEdit}
+                delete={this.delete}
+            />,
             visible: false
         })
     }
@@ -50,20 +56,6 @@ export default class SQLViewsPane extends React.Component {
     render() {
         return (
             <Layout >
-                <Drawer title='SQL Views'
-                    visible={this.state.visible}
-                    onClose={this.toggle}
-                    width={this.state.visibleEdit ? '60vw' : '50vw'}>
-                    <Button
-                        style={{ float: 'right', backgroundColor: 'transparent' }}
-                        onClick={this.toggleEdit}
-                        icon='plus'
-                        shape='circle' />
-                    <SearchList
-                        ontology={this.props.ontology}
-                        mappingID={this.props.mappingID}
-                        onHandle={this.onHandle} />
-                </Drawer>
                 <Drawer title='Add SQL View'
                     visible={this.state.visibleEdit}
                     onClose={this.toggleEdit}
@@ -84,19 +76,25 @@ export default class SQLViewsPane extends React.Component {
 
                 </Sider> */}
                 <Layout>
-                    <Content >
-                        <div>
-                            <Button type='primary' style={{ float: 'right', margin: 8 }} icon='menu-fold' onClick={this.toggle} />
-                            {this.state.current !== null &&
-                                <SQLViewsPage
-                                    ontology={this.props.ontology}
-                                    mappingID={this.props.mappingID}
-                                    viewID={this.state.current}
-                                    edit={this.toggleEdit} 
-                                    delete={this.delete}
-                                    />
-                            }
-                        </div>
+                    <Content>
+                        <Row>
+                            <Col span={6} style={{padding: 10, backgroundColor: 'var(--medium-dark)', height: 'calc(100vh - 98px)'}}>
+                                <div style={{display: 'flex', justifyContent: 'row'}}>
+                                    <SearchList
+                                        ontology={this.props.ontology}
+                                        mappingID={this.props.mappingID}
+                                        onHandle={this.onHandle} />
+                                    <Button
+                                        style={{ float: 'right', backgroundColor: 'transparent' }}
+                                        onClick={this.toggleEdit}
+                                        icon='plus'
+                                        shape='circle' />
+                                </div>
+                            </Col>
+                            <Col span={18}>
+                                {this.state.current}
+                            </Col>
+                        </Row>
                     </Content>
                 </Layout>
             </Layout>

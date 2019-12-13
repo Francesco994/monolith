@@ -54,7 +54,7 @@
     color: #555;
     margin-left: -4px;
     margin-top: 4px;
-    width: 378px;
+    /* width: 378px; */
 }
 
 .search::placeholder {
@@ -68,7 +68,8 @@
 .dropdown-content {
     overflow: auto;
     max-height: calc(100vh - 116px);
-    width: calc(50vw - 36px);
+    width: inherit;
+    /* width: calc(vw - 500px); */
     /* max-width: 40vw;
     min-width: 376px;
     min-height: 300px; */
@@ -90,7 +91,7 @@
 
 .react-dropdown-tree-select {
     margin-right: 10px;
-    width: 400px;
+    /* width: 400px; */
 }
 
 .react-dropdown-tree-select .dropdown .dropdown-content {
@@ -102,7 +103,13 @@
     color: white
 }
 
-.class .node-label::before {
+.class, .objectProperty, .dataProperty {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    direction: rtl;
+}
+
+.class .node-label::after {
     /* content: url("../lib/grapholscape/assets/icons/ic_treeview_concept_18dp_1x.png"); */
     content: url(class.svg);
     display: inline-block;
@@ -111,7 +118,7 @@
     height: 20px;
 }
 
-.objectProperty .node-label::before {
+.objectProperty .node-label::after {
     /* content: url("../lib/grapholscape/assets/icons/ic_treeview_role_18dp_1x.png"); */
     content: url(role.svg);
     display: inline-block;
@@ -120,7 +127,7 @@
     height: 21px;
 }
 
-.dataProperty .node-label::before {
+.dataProperty .node-label::after {
     /* content: url("../lib/grapholscape/assets/icons/ic_treeview_attribute_18dp_1x.png"); */
     content: url(attr.svg);
     display: inline-block;
