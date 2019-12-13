@@ -103,13 +103,13 @@
     color: white
 }
 
-.class, .objectProperty, .dataProperty {
+/* .class, .objectProperty, .dataProperty {
     overflow: hidden;
     text-overflow: ellipsis;
     direction: rtl;
 }
-
-.class .node-label::after {
+ */
+.class .node-label::before {
     /* content: url("../lib/grapholscape/assets/icons/ic_treeview_concept_18dp_1x.png"); */
     content: url(class.svg);
     display: inline-block;
@@ -118,7 +118,7 @@
     height: 20px;
 }
 
-.objectProperty .node-label::after {
+.objectProperty .node-label::before {
     /* content: url("../lib/grapholscape/assets/icons/ic_treeview_role_18dp_1x.png"); */
     content: url(role.svg);
     display: inline-block;
@@ -127,7 +127,7 @@
     height: 21px;
 }
 
-.dataProperty .node-label::after {
+.dataProperty .node-label::before {
     /* content: url("../lib/grapholscape/assets/icons/ic_treeview_attribute_18dp_1x.png"); */
     content: url(attr.svg);
     display: inline-block;
