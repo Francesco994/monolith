@@ -67,8 +67,9 @@
 
 .dropdown-content {
     overflow: auto;
-    max-height: calc(100vh - 116px);
+    height: calc(100vh - 154px);
     width: inherit;
+    /* max-height: calc(100vh - 116px); */
     /* width: calc(vw - 500px); */
     /* max-width: 40vw;
     min-width: 376px;
@@ -77,6 +78,7 @@
 }
 
 .react-dropdown-tree-select .dropdown .dropdown-content {
+    padding: 0px;
     background-color: transparent;
     /* background-color: rgb(39, 42, 46) !important; */
     border: unset;
@@ -141,5 +143,5 @@
 }
 
 .leaf {
-    margin-left: 13px
+    margin-left: 22px
 }
