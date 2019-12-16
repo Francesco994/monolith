@@ -70,7 +70,7 @@ export default class KnowledgeGraphSPARQLEndpoint extends React.Component {
                 <div style={{ display: 'flex', justifyContent: 'center', paddingTop: 36 }}> <Spin size='large' /></div> :
                 <Layout style={{ minHeight: 'calc(100vh - 25px)' }}>
                     <Sider
-                        className='queryCatalog'
+                        className='thirdMenu'
                         collapsed={this.state.collapsed}
                     >
                         <KnowledgeGraphQueryCatalog

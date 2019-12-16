@@ -10,19 +10,19 @@ export default class QueryInfo extends React.Component {
                 mapValue: this.props.status.numOntologyRewritings
             },
             {
-                mapKey: 'High level unfolded queries',
+                mapKey: 'High level unfold',
                 mapValue: this.props.status.numHighLevelQueries
             },
             {
-                mapKey: 'Optimized queries',
+                mapKey: 'Optimized',
                 mapValue: this.props.status.numOptimizedQueries
             },
             {
-                mapKey: 'Low level unfolded queries',
+                mapKey: 'Low level unfold',
                 mapValue: this.props.status.numLowLevelQueries
             },
             {
-                mapKey: 'Total execution time (ms)',
+                mapKey: 'Total time (ms)',
                 mapValue: this.props.status.executionTime
             },
         ]

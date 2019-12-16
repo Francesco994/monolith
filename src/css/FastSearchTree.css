@@ -54,7 +54,12 @@
     color: #555;
     margin-left: -4px;
     margin-top: 4px;
-    /* width: 378px; */
+    width: 295px;
+
+}
+
+.search-list>.dropdown>.dropdown-trigger>.tag-list>.tag-item>.search {
+    width: 255px;
 }
 
 .search::placeholder {

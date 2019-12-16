@@ -47,7 +47,7 @@ export default class OntologyDrawer extends React.Component {
         return (
             this.state.loading ? <div style={{ display: 'flex', justifyContent: 'center', paddingTop: 36 }}> <Spin size='large' /></div> :
                 <div>
-                    <Tabs size='small' onTabClick={this.tabClick} style={{height: 'calc(100vh - 60px)'}}>
+                    <Tabs size='small' onTabClick={this.tabClick} style={{height: 'calc(100vh - 106px)'}}>
                         <Tabs.TabPane tab='Classes' key='c'>
                             {this.state.currentTab === 'c' && <SearchTree
                                 classes

@@ -419,7 +419,7 @@ export default class MastroSPARQLTabPane extends React.Component {
         const enableRun = this.state.runningMappingIDs.includes(this.state.selectedMappingID)
 
         return (
-            <div style={{ padding: '0px 8px 8px 8px', height: 'calc(100vh - 81px)', overflow: 'auto' }}>
+            <div style={{ padding: '0px 8px 8px 8px', height: 'calc(100vh - 105px)', overflow: 'auto' }}>
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
                     <MappingSelector
                         mappings={this.props.mappings}
@@ -491,7 +491,7 @@ export default class MastroSPARQLTabPane extends React.Component {
                         running={this.state.loading}
                         queryType={this.yasqe && this.yasqe.getQueryType()}
                     />}
-                {this.yasqe && this.yasqe.getQueryType() !== 'CONSTRUCT' &&
+                {this.state.showResults && this.yasqe && this.yasqe.getQueryType() !== 'CONSTRUCT' &&
                     <QueryExecutionReport
                         ontology={this.props.ontology}
                         mappingID={this.state.selectedMappingID}

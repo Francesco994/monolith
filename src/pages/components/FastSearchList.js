@@ -76,8 +76,8 @@ export default class SearchTree extends React.Component {
       onChange={this.onChange}
       onAction={onAction}
       // onNodeToggle={onNodeToggle}
-      className="ant-input"
-      placeholderText="Choose or select SQL view"
+      className="ant-input search-list"
+      texts={{placeholder: "Choose or select SQL view"}}
       showDropdown='always'
     />
   }

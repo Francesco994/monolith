@@ -103,7 +103,7 @@ export default class SearchTree extends React.Component {
       onAction={onAction}
       // onNodeToggle={onNodeToggle}
       className="ant-input"
-      placeholderText="Search or select from entity tree"
+      texts={{placeholder: "Search or select from entity tree"}}
       showDropdown='always'
     />
   }

@@ -66,7 +66,7 @@ export default class MastroQueryCatalog extends React.Component {
     }
 
     render() {
-        const h = !this.props.collapsed ? 87 : 47
+        const h = !this.props.collapsed ? 120 : 80
         return (
             <div>
                 {!this.props.collapsed && <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: 8, }}>

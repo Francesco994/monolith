@@ -293,7 +293,7 @@ td {
   color: var(--white)
 }
 
-.queryCatalog, .ant-card-head, .ant-card, .ant-table-placeholder, .ant-tabs.ant-tabs-card>.ant-tabs-bar .ant-tabs-tab {
+.thirdMenu, .ant-card-head, .ant-card, .ant-table-placeholder, .ant-tabs.ant-tabs-card>.ant-tabs-bar .ant-tabs-tab {
   background-color: var(--medium-dark)
 }
 

@@ -1,9 +1,10 @@
 import React from 'react';
-import { Layout, Row, Col } from 'antd';
+import { Layout } from 'antd';
 import AssertionsPage from './AssertionsPage'
 import OntologyTree from '../OntologyTree';
 
 const {
+    Sider,
     Content,
 } = Layout;
 
@@ -29,34 +30,23 @@ export default class AssertionsPane extends React.Component {
 
     render() {
         return (
-            <Layout >
-                {/* <Header style={{ backgroundColor: 'transparent', display: 'flex', justifyContent: 'center', lineHeight: 1.5, height: 32 }}>
-                    <div style={{ display: 'inline-flex' }}>
-                        <SearchTree ontology={this.props.ontology} onHandle={this.onHandle} />
-                    </div>
-
-                </Header> */}
-
-                {/* <Sider
-                    // width={200} 
-                    style={{ background: '#fff' }}
+            <Layout>
+                <Sider
+                    className='thirdMenu'
+                    collapsed={this.state.collapsed}
+                    width="333"
+                    style={{ padding: 4 }}
                 >
-                    <SearchTree ontology={this.props.ontology}/>
-
-                </Sider> */}
+                    <OntologyTree
+                        ontology={this.props.ontology}
+                        visible={this.state.visible}
+                        onHandle={this.onHandle} />
+                </Sider>
                 <Layout>
-                    <Content >
-                        <Row>
-                            <Col span={6} style={{ padding: 10, backgroundColor: 'var(--medium-dark)', height: 'calc(100vh - 98px)' }}>
-                                <OntologyTree
-                                    ontology={this.props.ontology}
-                                    visible={this.state.visible}
-                                    onHandle={this.onHandle} />
-                            </Col>
-                            <Col span={18}>
-                                {this.state.current}
-                            </Col>
-                        </Row>
+                    <Content>
+                        <div style={{ height: 'calc(100vh - 98px)', overflow: 'auto', padding: 8 }}>
+                            {this.state.current}
+                        </div>
                     </Content>
                 </Layout>
             </Layout>

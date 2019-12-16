@@ -1,10 +1,11 @@
 import React from 'react';
-import { Layout, Drawer, Button, Row, Col } from 'antd';
+import { Layout, Drawer, Button } from 'antd';
 import SearchList from '../../components/FastSearchList';
 import SQLViewsPage from './SQLViewsPage';
 import AddSQLView from './AddSQLView';
 
 const {
+    Sider,
     Content,
 } = Layout;
 
@@ -62,39 +63,29 @@ export default class SQLViewsPane extends React.Component {
                     width={'50vw'}>
                     {this.state.drawer}
                 </Drawer>
-                {/* <Header style={{ backgroundColor: 'transparent', display: 'flex', justifyContent: 'center', lineHeight: 1.5, height: 32 }}>
-                    <div style={{ display: 'inline-flex' }}>
-                        <SearchList ontology={this.props.ontology} mappingID={this.props.mappingID} onHandle={this.onHandle} />
-                    </div>
-
-                </Header> */}
-                {/* <Sider
-                    // width={200} 
-                    style={{ background: '#fff' }}
+                <Sider
+                    className='thirdMenu'
+                    collapsed={this.state.collapsed}
+                    width="333"
+                    style={{ padding: 4 }}
                 >
-                    <SearchList />
-
-                </Sider> */}
+                    <div style={{ display: 'flex', justifyContent: 'row' }}>
+                        <SearchList
+                            ontology={this.props.ontology}
+                            mappingID={this.props.mappingID}
+                            onHandle={this.onHandle} />
+                        <Button
+                            style={{ float: 'right', backgroundColor: 'transparent' }}
+                            onClick={this.toggleEdit}
+                            icon='plus'
+                            shape='circle' />
+                    </div>
+                </Sider>
                 <Layout>
                     <Content>
-                        <Row>
-                            <Col span={6} style={{padding: 10, backgroundColor: 'var(--medium-dark)', height: 'calc(100vh - 98px)'}}>
-                                <div style={{display: 'flex', justifyContent: 'row'}}>
-                                    <SearchList
-                                        ontology={this.props.ontology}
-                                        mappingID={this.props.mappingID}
-                                        onHandle={this.onHandle} />
-                                    <Button
-                                        style={{ float: 'right', backgroundColor: 'transparent' }}
-                                        onClick={this.toggleEdit}
-                                        icon='plus'
-                                        shape='circle' />
-                                </div>
-                            </Col>
-                            <Col span={18}>
-                                {this.state.current}
-                            </Col>
-                        </Row>
+                        <div style={{ height: 'calc(100vh - 98px)', overflow: 'auto', padding: 8 }}>
+                            {this.state.current}
+                        </div>
                     </Content>
                 </Layout>
             </Layout>
