@@ -88,7 +88,7 @@ export default class SQLViewsPage extends React.Component {
                     </div>
                 }
             </Card>,
-            <Divider></Divider>,
+            <Divider>{'Mappings'}</Divider>,
             <AssertionsList entity list={data.mappingAssertions} />,
             <Divider>{'Dependencies'}</Divider>,
             <Dependencies dependencies={data.mappingDependencies} />
