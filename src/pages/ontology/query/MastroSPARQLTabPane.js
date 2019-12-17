@@ -100,7 +100,7 @@ export default class MastroSPARQLTabPane extends React.Component {
 
         this.yasqe.refresh();
 
-        if (this.props.executionID) {
+        if (this.props.executionID && this.state.runningMappingIDs.includes(this.state.selectedMappingID)) {
             this.startPolling(this.props.executionID)
         }
     }
