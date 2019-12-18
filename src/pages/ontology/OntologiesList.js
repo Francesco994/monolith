@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, Card, Select, Button, Modal, Icon } from 'antd';
+import { List, Card, Select, Modal, Icon, Input } from 'antd';
 import AddOntology from './AddOntology';
 import { deleteOntology } from '../../api/MastroApi';
 import moment from 'moment'
@@ -62,15 +62,15 @@ export default class OntologiesList extends React.Component {
     changeSort = (value) => {
         if (value === 'name')
             this.setState({
-                data: this.props.data.sort(this.sortByName)
+                data: this.state.data.sort(this.sortByName)
             })
         else if (value === 'date')
             this.setState({
-                data: this.props.data.sort(this.sortByDate)
+                data: this.state.data.sort(this.sortByDate)
             })
         else if (value === 'dateD')
             this.setState({
-                data: this.props.data.sort(this.sortByDateD)
+                data: this.state.data.sort(this.sortByDateD)
             })
     }
 
@@ -92,7 +92,7 @@ export default class OntologiesList extends React.Component {
                         </div>
                     </div>
                 </Modal>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 6 }}>
+                {/* <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 6 }}>
                     <Button style={{ visibility: 'hidden', width: 140 }} type='primary' icon='step-backward'>
                         Back
                     </Button>
@@ -108,45 +108,67 @@ export default class OntologiesList extends React.Component {
                             Sort by name
                         </Option>
                     </Select>
+                </div> */}
+                <h1 style={{display: 'flex', justifyContent: 'center'}}>Ontologies</h1>
+                <div style={{ padding: 10 }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: 10 }}>
+                        <div style={{ width: 205 }}></div>
+                        <div style={{ display: 'flex' }}>
+                            <Input 
+                                placeholder='Search ontology...' 
+                                onChange={(e) => {
+                                    this.setState({
+                                        data: this.props.data.filter(i => i.ontologyID.toLowerCase().includes(e.target.value.toLocaleLowerCase()))
+                                    })
+                                }} 
+                                style={{ width: 576, marginRight: 6 }} />
+                            <AddOntology rerender={this.props.rerender} />
+                        </div>
+                        <Select style={{ width: 205 }} defaultValue='dateD' onChange={this.changeSort} >
+                            <Option value='dateD' >
+                                Sort by date (descending)
+                        </Option>
+                            <Option value='date' >
+                                Sort by date (ascending)
+                        </Option>
+                            <Option value='name' >
+                                Sort by name
+                        </Option>
+                        </Select>
+                    </div>
                 </div>
                 <List
                     style={{ height: 'calc(100vh - 79px)', overflow: 'auto' }}
                     className='bigCards'
                     rowKey="ontologiesView"
                     grid={{ gutter: 12, lg: 3, md: 2, sm: 1, xs: 1 }}
-                    dataSource={['', ...this.state.data]}
+                    dataSource={this.state.data}
                     renderItem={item =>
-                        item ? (
-                            <List.Item key={item.ontologyID} style={{ paddingBottom: 6 }}>
-                                <Card hoverable>
-                                    <Card.Meta key={item.ontologyID}
-                                        title={item.ontologyID}
-                                        description={item.ontologyDescription}
-                                        onClick={
-                                            () => {
-                                                this.props.next(item.ontologyID);
-                                            }
+                        <List.Item key={item.ontologyID} style={{ paddingBottom: 6 }}>
+                            <Card hoverable>
+                                <Card.Meta key={item.ontologyID}
+                                    title={item.ontologyID}
+                                    description={item.ontologyDescription}
+                                    onClick={
+                                        () => {
+                                            this.props.next(item.ontologyID);
                                         }
-                                    />
-                                    <div className='card-bottom'>
-                                        <div>
-                                            {moment(item.ontologyDate).format(dateFormat)}
-                                        </div>
-                                        <div className='card-actions'>
-                                            <span className='delete-icon' style={{paddingLeft: 12}} onClick={
-                                                () => this.setState({ modalVisible: true, toDelete: item.ontologyID })
-                                            }>
-                                                <Icon type="delete" theme="filled" />
-                                            </span>
-                                        </div>
+                                    }
+                                />
+                                <div className='card-bottom'>
+                                    <div>
+                                        {moment(item.ontologyDate).format(dateFormat)}
                                     </div>
-                                </Card>
-                            </List.Item>
-                        ) : (
-                                <List.Item>
-                                    <AddOntology rerender={this.props.rerender} />
-                                </List.Item>
-                            )
+                                    <div className='card-actions'>
+                                        <span className='delete-icon' style={{ paddingLeft: 12 }} onClick={
+                                            () => this.setState({ modalVisible: true, toDelete: item.ontologyID })
+                                        }>
+                                            <Icon type="delete" theme="filled" />
+                                        </span>
+                                    </div>
+                                </div>
+                            </Card>
+                        </List.Item>
                     }
                 />
             </div>

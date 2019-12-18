@@ -47,17 +47,17 @@ export default class OntologyWiki extends React.Component {
                     className='thirdMenu'
                     collapsed={this.state.collapsed}
                     width="333"
-                    style={{padding: 4}}
                 >
                     <OntologyTree
                         ontology={this.props.ontology}
                         onHandle={this.onHandle}
-                        visible={!this.props.match.params.entityID} />
-
+                        visible={!this.props.match.params.entityID}
+                        style={{ padding: 4, height: 'calc(100vh - 50px)' }}
+                    />
                 </Sider>
                 <Layout>
                     <Content>
-                        <div style={{ height: 'calc(100vh - 49px)', overflow: 'auto', padding: 8 }}>
+                        <div style={{ height: 'calc(100vh - 50px)', overflow: 'auto', padding: 8 }}>
                             {this.state.entityIRI && <NavLink
                                 style={{ float: 'right', fontSize: 20 }}
                                 to={`/open/ontology/graphol/?iri=${encodeURIComponent(this.state.entityIRI)}`}>

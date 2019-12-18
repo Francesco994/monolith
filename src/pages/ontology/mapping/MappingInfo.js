@@ -58,7 +58,7 @@ export default class MappingInfo extends React.Component {
             <div>
                 <div style={{ textAlign: 'center', padding: 16 }}>
                     <h1>{this.props.mappingID}</h1>
-                    <h3><span>Datasource: </span><Link to='/settings'>{data.mappingDBConnections[0].name}</Link></h3>
+                    <h3><span>Datasource: </span><Link to='/settings/datasource'>{data.mappingDBConnections[0].name}</Link></h3>
                 </div>
                 <div style={{ height: 'calc(100vh - 231px)', overflow: 'auto' }}>
                     <Card title="Description" className='description' style={{ margin: '0px 6px 12px 6px' }}>

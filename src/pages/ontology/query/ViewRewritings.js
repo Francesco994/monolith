@@ -103,7 +103,6 @@ export default class ViewRewritings extends React.Component {
 
 
     render() {
-        console.log(this.state.data)
         return (
             <Table
                 columns={[{ dataIndex: 'value' }]}

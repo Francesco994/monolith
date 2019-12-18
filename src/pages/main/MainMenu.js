@@ -15,7 +15,7 @@ export default class MainMenu extends React.Component {
         return (
             <div>
                 <Menu
-                    theme="dark"
+                    // theme="dark"
                     className='mainMenu'
                     mode="vertical">
                     <MenuItem key="home" id='logoMenuItem'>

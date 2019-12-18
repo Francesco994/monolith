@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, Select, Button, Icon, Drawer, Spin } from 'antd';
+import { List, Select, Button, Drawer, Spin, Input } from 'antd';
 import DatasourceCard from './DatasourceCard';
 import DatasourceForm from './DatasourceForm';
 import { getDatasources, deleteDatasources } from '../../api/MastroApi';
@@ -9,6 +9,7 @@ const Option = Select.Option
 export default class Datasources extends React.Component {
     state = {
         data: [],
+        filterData: [],
         visible: false,
         drawer: null,
         loading: true
@@ -23,7 +24,7 @@ export default class Datasources extends React.Component {
     }
 
     loaded = (data) => {
-        this.setState({ data, visible: false, loading: false })
+        this.setState({ data, filterData: data, visible: false, loading: false })
     }
 
     delete = (datasourceID) => {
@@ -46,7 +47,7 @@ export default class Datasources extends React.Component {
 
     open = (open) => {
         this.setState({
-            drawer: <DatasourceForm dataSource={this.state.data.filter(d => d.id === open)[0]} rerender={this.onClose}/>,
+            drawer: <DatasourceForm dataSource={this.state.data.find(d => d.id === open)} rerender={this.onClose} />,
             visible: true
         })
     }
@@ -60,42 +61,54 @@ export default class Datasources extends React.Component {
     render() {
         return (
             this.state.loading ? <div style={{ display: 'flex', justifyContent: 'center', paddingTop: 36 }}> <Spin size='large' /></div> :
-                <div>
-                    <Select defaultValue='date' onChange={this.changeSort} style={{ padding: 6 }}>
-                        <Option value='date' >
-                            Sort by date
-                    </Option>
-                        <Option value='name' >
-                            Sort by name
-                    </Option>
-                    </Select>
+                <div style={{ padding: 10 }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: 10 }}>
+                        <div style={{ width: 205 }}></div>
+                        <div style={{ display: 'flex' }}>
+                            <Input 
+                                placeholder='Search datasource...' 
+                                onChange={(e) => {
+                                    this.setState({
+                                        filterData: this.state.data.filter(i => i.id.toLowerCase().includes(e.target.value.toLocaleLowerCase()))
+                                    })
+                                }} 
+                                style={{ width: 576, marginRight: 6 }} />
+                            <Button
+                                style={{ backgroundColor: 'transparent' }}
+                                onClick={this.showDrawer}
+                                icon='plus'
+                                shape='circle' />
+
+                        </div>
+                        <Select style={{ width: 205 }} defaultValue='date' onChange={this.changeSort}>
+                            <Option value='date' >
+                                Sort by date
+                            </Option>
+                            <Option value='name' >
+                                Sort by name
+                            </Option>
+                        </Select>
+                    </div>
+
+                    <Drawer
+                        width='40vw'
+                        onClose={this.onClose}
+                        visible={this.state.visible}
+                        style={{
+                            overflow: 'auto',
+                        }}
+                    >
+                        {this.state.drawer}
+                    </Drawer>
+
                     <List
-                        className='bigCards'
                         rowKey="ontologiesView"
                         grid={{ gutter: 12, lg: 3, md: 2, sm: 1, xs: 1 }}
-                        dataSource={['', ...this.state.data]}
+                        dataSource={this.state.filterData}
                         renderItem={(item, index) =>
-                            item ? (
-                                <List.Item key={index} style={{ paddingBottom: 6 }} >
-                                    <DatasourceCard datasource={item} open={this.open} delete={this.delete} />
-                                </List.Item>
-                            ) : (
-                                    <List.Item key={index}>
-                                        <Button type='primary' style={{ height: 274, width: '100%' }} onClick={this.showDrawer}>
-                                            <Icon type="plus" /> Add Datasource
-                                        </Button>
-                                        <Drawer
-                                            width='40vw'
-                                            onClose={this.onClose}
-                                            visible={this.state.visible}
-                                            style={{
-                                                overflow: 'auto',
-                                            }}
-                                        >
-                                            {this.state.drawer}
-                                        </Drawer>
-                                    </List.Item>
-                                )
+                            <List.Item key={index} style={{ paddingBottom: 6 }} >
+                                <DatasourceCard datasource={item} open={this.open} delete={this.delete} />
+                            </List.Item>
                         }
                     />
                 </div>

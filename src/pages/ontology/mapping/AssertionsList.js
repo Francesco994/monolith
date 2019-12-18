@@ -3,11 +3,17 @@ import { List, Button, Drawer, Input } from 'antd';
 import Assertion from './Assertion';
 import AssertionForm from './AssertionForm';
 import { deleteMappingAssertion } from '../../../api/MastroApi';
+import { renderEntity } from '../../../utils/utils';
 
 export default class AssertionsList extends React.Component {
     state = {
+        filterData: [],
         visible: false,
         drawer: null,
+    }
+
+    componentDidMount () {
+        this.setState({filterData: this.props.list})
     }
 
     onClose = () => {
@@ -54,14 +60,23 @@ export default class AssertionsList extends React.Component {
     }
 
     render() {
-        let dataSource = this.props.list
-
         return (
             <div>
-                <div style={{display: 'flex', direction: 'row', padding: 10}}>
-                    <Input placeholder='Search mappings...'/>
+                <div style={{ display: 'flex', justifyContent: 'center', padding: 10}}>
+                    <Input
+                        placeholder={`Search by ${this.props.entity ? 'entity' : 'SQL view'}...`}
+                        onChange={(e) => {
+                            this.setState({
+                                filterData: this.props.list.filter(i => (
+                                    this.props.entity 
+                                        ? renderEntity(i.currentEntity).toLowerCase().includes(e.target.value.toLowerCase()) 
+                                        : i.mappingBody.bodyFrom.map(from => from.sqlViewID).join('|').toLowerCase().includes(e.target.value.toLowerCase())
+                                ))
+                            })
+                        }}
+                        style={{ width: 576, marginRight: 6 }} />
                     <Button
-                        style={{ float: 'right', backgroundColor: 'transparent' }}
+                        style={{ backgroundColor: 'transparent' }}
                         onClick={this.showDrawer}
                         icon='plus'
                         shape='circle' />
@@ -82,7 +97,7 @@ export default class AssertionsList extends React.Component {
                     className='bigCards'
                     rowKey="ontologiesView"
                     grid={{ column: 2, gutter: 6 }}
-                    dataSource={dataSource}
+                    dataSource={this.state.filterData}
                     renderItem={(item, index) =>
                         <List.Item key={index}>
                             <Assertion

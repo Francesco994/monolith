@@ -1,6 +1,6 @@
 import React from 'react'
 import {
-    Drawer, Form, Button, Col, Row, Input, Icon,
+    Drawer, Form, Button, Col, Row, Input
 } from 'antd';
 
 import { postOntology } from '../../api/MastroApi'
@@ -45,9 +45,14 @@ class DrawerForm extends React.Component {
         const { getFieldDecorator } = this.props.form;
         return (
             <div>
-                <Button type='primary' style={{ height: 205, width: '100%' }} onClick={this.showDrawer}>
+                {/* <Button type='primary' style={{ height: 205, width: '100%' }} onClick={this.showDrawer}>
                     <Icon type="plus" /> Add Ontology
-                </Button>
+                </Button> */}
+                <Button
+                    style={{ backgroundColor: 'transparent' }}
+                    onClick={this.showDrawer}
+                    icon='plus'
+                    shape='circle'/>
                 <Drawer
                     title="Create a new ontology"
                     width='40vw'

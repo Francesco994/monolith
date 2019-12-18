@@ -100,8 +100,8 @@ export default class UploadFile extends React.Component {
         <p>Create a new Mapping through form below</p>
       </div> :
       this.props.type === 'kg' ?
-        'Upload RDF file' :
-        'Upload Ontology Version'
+        'Click or drag RDF file' :
+        'Click or drag ontology version (*.owl, *.graphol)'
     let h = 205
     return (
       <div style={{ height: h, width: '100%' }}>

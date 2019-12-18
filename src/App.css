@@ -3,13 +3,13 @@
 @import 'css/font/hindguntur/style.css';
 @import 'css/font/proxima_ssv/style.css';
 @import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
-* {
+*:not(.CodeMirror, code *) {
   font-family: 'ProximaNova', 'Open Sans', 'HelveticaNeueCyr-Roman', 'Hind Guntur Regular', Arial, sans-serif;
   /* font-size: 16px; */
 }
 
-code * {
-  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+.CodeMirror, code * {
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace !important;
   /* font-size: 14px !important; */
 }
 
@@ -160,6 +160,10 @@ td {
 .mappingAssertion>.ant-card-body>.ant-card-meta>.ant-card-meta-detail>.ant-card-meta-description {
   height: 195px;
   overflow: auto;
+}
+
+.mappingSQLCard>.ant-card-body {
+  height: auto;
 }
 
 .card-bottom {
@@ -415,7 +419,7 @@ a:hover, .link:hover {
 }
 
 .ant-menu .ant-menu-item-selected a {
-  color: var(--dark) !important;
+  color: var(--highlight) !important;
 }
 
 .ant-menu .ant-menu-item-selected::after {
@@ -461,7 +465,9 @@ a:hover, .link:hover {
 .ant-popover-inner-content, .ant-popover-arrow {
   border-color: rgb(43, 43, 43) !important;
   background-color: rgb(43, 43, 43);
-  color: var(--white)
+  color: var(--white);
+  max-height: 100vh;
+  overflow: auto;
 }
 
 .kgInstancesCard .ant-card-head {

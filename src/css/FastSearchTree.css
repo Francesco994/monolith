@@ -70,6 +70,10 @@
     width: 100%;
 }
 
+.mappingOntologyTree .dropdown-content {
+    height: calc(100vh - 204px);
+}
+
 .dropdown-content {
     overflow: auto;
     height: calc(100vh - 154px);

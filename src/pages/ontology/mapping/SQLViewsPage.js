@@ -59,11 +59,8 @@ export default class SQLViewsPage extends React.Component {
             },
         ]
         const elements = [
-            <Card className='mappingAssertion'>
-                <Card.Meta key={this.props.assertion}
-                    title={<div></div>}
-                    description={<ListMapItem data={first} />}
-                />
+            <Card className='mappingSQLCard'>
+                <ListMapItem data={first} />
                 {!this.props.entity && 
                     <div className='card-bottom'>
                         <div></div>

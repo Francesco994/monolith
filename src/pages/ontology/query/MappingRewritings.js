@@ -39,7 +39,6 @@ export default class MappingRewritings extends React.Component {
     }
 
     convertData(results) {
-        console.log(results)
         let data = []
         for (let i = 0; i < results.length; i++) {
             data.push({
@@ -92,7 +91,6 @@ export default class MappingRewritings extends React.Component {
 
 
     render() {
-        console.log(this.state.data)
         return (
             <Table
                 columns={[{ dataIndex: 'value' }]}

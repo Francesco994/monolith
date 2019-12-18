@@ -6,7 +6,7 @@ import AssertionsPane from './AssertionsLayout';
 import SQLViewsPane from './SQLViewsLayout';
 
 const {
-    Header, Content,
+    Content,
 } = Layout;
 
 export default class CurrentMapping extends React.Component {
@@ -16,9 +16,9 @@ export default class CurrentMapping extends React.Component {
         const currTab = [this.props.match.params.tab]
         return (
             <Layout>
-                <Header style={{ background: 'transparent' }}>
+                <div style={{ background: 'transparent' }}>
                     <Menu
-                        style={{ background: 'transparent', borderBottom: 'solid 1px var(--highlight-gray)' }}
+                        style={{ background: 'var(--medium-dark)', borderBottom: 'solid 1px var(--highlight-gray)' }}
                         defaultSelectedKeys={currTab}
                         mode="horizontal"
                     >
@@ -41,7 +41,7 @@ export default class CurrentMapping extends React.Component {
                             Dependencies
                         </Menu.Item> */}
                     </Menu>
-                </Header>
+                </div>
                 <Content>
                     <Route path="/open/ontology/mapping/info/" render={(props) =>
                         <MappingInfo {...props} ontology={this.props.ontology} mappingID={this.props.match.params.mappingID}/>} />

@@ -17,7 +17,7 @@ function convertData(node, arr, predicateType) {
       entityIRI: item.entity.entityPrefixIRI,
       predicateType: predicateType,
       children: children,
-      className: predicateType,
+      className: predicateType
     })
   }
 

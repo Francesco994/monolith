@@ -15,6 +15,15 @@ export default class AssertionsPane extends React.Component {
         visible: true
     }
 
+    componentDidMount () {
+        // document.getElementsByClassName("dropdown-content")[0].style.height = 'calc(100vh - 204px) !important'
+        console.log(document.getElementsByClassName("dropdown-content")[0])
+    }
+    
+    componentDidUpdate() {
+        console.log(document.getElementsByClassName("dropdown-content")[0])
+    }
+
     onHandle = (entityID, predicateType) => {
         this.setState({
             current: <AssertionsPage
@@ -32,12 +41,12 @@ export default class AssertionsPane extends React.Component {
         return (
             <Layout>
                 <Sider
-                    className='thirdMenu'
+                    className='thirdMenu mappingOntologyTree'
                     collapsed={this.state.collapsed}
                     width="333"
-                    style={{ padding: 4 }}
                 >
                     <OntologyTree
+                        style={{height: 'calc(100vh - 98px)', padding: 4}}
                         ontology={this.props.ontology}
                         visible={this.state.visible}
                         onHandle={this.onHandle} />

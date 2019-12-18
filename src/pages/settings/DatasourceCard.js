@@ -9,10 +9,7 @@ export default class DatasourceCard extends React.Component {
     }
     render() {
         return (
-            <Card hoverable actions={[
-                <span onClick={() => this.props.open(this.props.datasource.id)}>edit</span>,
-                <span onClick={() => this.props.delete(this.props.datasource.id)}>delete</span>,
-            ]}>
+            <Card>
                 <Card.Meta key={this.props.datasource.id}
                     title={this.props.datasource.id}
                     description={this.props.datasource.description ?
@@ -47,6 +44,18 @@ export default class DatasourceCard extends React.Component {
                         },
                     ]
                 } />
+                <div className="card-bottom">
+                    <div></div>
+                    <div className='card-actions'>
+                        <span onClick={() => this.props.open(this.props.datasource.id)}>
+                            <Icon type="edit" theme="filled" />
+                        </span>
+                        <span className='delete-icon' style={{ paddingLeft: 12 }}
+                            onClick={() => this.props.delete(this.props.datasource.id)}>
+                            <Icon type="delete" theme="filled" />
+                        </span>
+                    </div>
+                </div>
             </Card>
         )
     }
