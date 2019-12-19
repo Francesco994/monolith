@@ -31,6 +31,7 @@ export default class MastroAddCloseTabs extends React.Component {
       for (let i = 0; i < props.catalog.length; i++) {
         if (props.catalog[i].queryID === props.open) {
           this.add(props.catalog[i])
+          this.props.opened()
           break
         }
       }

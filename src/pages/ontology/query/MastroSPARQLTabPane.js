@@ -87,14 +87,20 @@ export default class MastroSPARQLTabPane extends React.Component {
         if (this.props.query.queryCode !== undefined) {
             this.yasqe.setValue(this.props.query.queryCode)
             this.yasqe.collapsePrefixes(true)
-        }
-        else
+        } else {
             this.yasqe.setValue("")
+        }
+        this.setState({queryValid: this.yasqe.queryValid})
+
         this.yasqe.on('change', () => {
             if (!this.state.dirty) {
                 this.props.setDirty(this.state.tabKey)
-                this.setState({ dirty: true })
+                this.setState({dirty: true})
             }
+            if (this.state.queryValid !== this.yasqe.queryValid) {
+                this.setState({ queryValid: this.yasqe.queryValid })
+            }
+
 
         })
 
@@ -416,7 +422,7 @@ export default class MastroSPARQLTabPane extends React.Component {
     }
 
     render() {
-        const enableRun = this.state.runningMappingIDs.includes(this.state.selectedMappingID)
+        const enableRun = this.state.runningMappingIDs.includes(this.state.selectedMappingID) && this.state.queryValid
 
         return (
             <div style={{ padding: '0px 8px 8px 8px', height: 'calc(100vh - 105px)', overflow: 'auto' }}>
@@ -431,7 +437,7 @@ export default class MastroSPARQLTabPane extends React.Component {
                         stopMastro={this.stopMastro}
                     />
                 </div>
-                <Progress percent={this.state.status.percentage} />
+                <Progress percent={this.state.status.percentage} status={this.state.status.hasError ? 'exception' : 'normal'}/>
                 <div id={"sparql_" + this.props.num} />
                 <TextArea
                     style={{ margin: '12px 0px 12px 0px' }}

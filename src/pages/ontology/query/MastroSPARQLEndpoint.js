@@ -79,6 +79,12 @@ export default class MastroSPARQLEndpoint extends React.Component {
         });
     }
 
+    opened = () => {
+        this._isMounted && this.setState({
+            open: null,
+        });
+    }
+
     toggle = () => {
         this.setState({
             collapsed: !this.state.collapsed,
@@ -123,6 +129,7 @@ export default class MastroSPARQLEndpoint extends React.Component {
                                     catalog={this.state.catalog}
                                     open={this.state.open}
                                     openF={this.open}
+                                    opened={this.opened}
                                     refreshCatalog={this.requestCatalog.bind(this)}
                                 />
                             </div>
