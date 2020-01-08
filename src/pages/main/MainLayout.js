@@ -27,11 +27,11 @@ export default class MainLayout extends React.Component {
     mastroVersion: '1.0'
   }
 
-  // componentWillMount() {
-  //   const mainState = JSON.parse(localStorage.getItem("mainState"))
-  //   this.setState(mainState)
+  componentWillMount() {
+    const mainState = JSON.parse(localStorage.getItem("mainState"))
+    this.setState(mainState)
 
-  // }
+  }
 
   componentDidMount() {
     getMastroVersion((mastroVersion) => this.setState({mastroVersion}))
@@ -146,7 +146,7 @@ export default class MainLayout extends React.Component {
   }
 
   render() {
-    // localStorage.setItem('mainState', JSON.stringify(this.state))
+    localStorage.setItem('mainState', JSON.stringify(this.state))
     return (
       <Layout style={{ height: '100vh' }} >
         <Sider

@@ -23,7 +23,7 @@ export default class Entity extends React.Component {
         }
         return (
             this.props.entity.entityType === 'EXPRESSION' ?
-                <code>{this.props.entity.entityID}</code> :
+                this.props.entity.entityID :
                 // REMOVE THIS LINE WHEN INDIVIDUAL PAGE IS READY
                 predicateType === 'individuals' ? <div>{renderEntity(this.props.entity)} </div> :
                     <NavLink

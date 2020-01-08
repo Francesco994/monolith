@@ -1026,13 +1026,14 @@ export function postDatasources(datasource, callback) {
     });
 }
 
-export function putDatasources(datasourceID, callback) {
+export function putDatasources(datasource, callback) {
     if (fakeCalls) { return callback([]) }
-    const url = localStorage.getItem('mastroUrl') + '/datasource/' + datasourceID
+    const url = localStorage.getItem('mastroUrl') + '/datasource/' + datasource.id
     const method = 'PUT'
     axios({
         url: url,
         method: method,
+        data: datasource,
         headers: JSON.parse(localStorage.getItem('headers')),
     }).then(function (response) {
         callback(response.data)
