@@ -1100,3 +1100,33 @@ export function getLastLoadedKnowledgeGraphs(callback) {
         manageError(err)
     });
 }
+
+export function getMastroVersion(callback) {
+    if (fakeCalls) { return callback([]) }
+    const url = localStorage.getItem('mastroUrl') + '/mastro/version'
+    const method = 'GET'
+    axios({
+        url: url,
+        method: method,
+        headers: JSON.parse(localStorage.getItem('headers')),
+    }).then(function (response) {
+        callback(response.data)
+    }).catch(function (err) {
+        manageError(err)
+    });
+}
+
+export function getMastroInstances(callback) {
+    if (fakeCalls) { return callback([]) }
+    const url = localStorage.getItem('mastroUrl') + '/mastro/instances'
+    const method = 'GET'
+    axios({
+        url: url,
+        method: method,
+        headers: JSON.parse(localStorage.getItem('headers')),
+    }).then(function (response) {
+        callback(response.data)
+    }).catch(function (err) {
+        manageError(err)
+    });
+}

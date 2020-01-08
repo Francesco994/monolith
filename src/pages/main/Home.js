@@ -39,17 +39,17 @@ export default class Home extends React.Component {
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <img src={logo} alt="logo" style={isChrome ? { height: 100 } : { maxHeight: 100 }} />
           </div>
-          {<LastLoadedList
+          <LastLoadedList
             ontology
             title="Recent Ontologies"
             data={this.state.dataOntologies}
             path="/open/ontology/info"
-            open={this.props.openOntology} />}
-          {<LastLoadedList
+            open={this.props.openOntology} />
+          <LastLoadedList
             title="Recent Knowledge Graphs"
             data={this.state.dataKG}
             path="/open/kg/info"
-            open={this.props.openKg} />}
+            open={this.props.openKg} />
           {/* {<LastLoadedList
           title="Recent Datasets"
           data={dataDataset}

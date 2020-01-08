@@ -1,6 +1,6 @@
 // disable warnings
 /* eslint-disable */
-const cytoscape = require('cytoscape')
+import cytoscape from 'cytoscape'
 
 function GrapholScape(file,container,xmlstring) {
   this.highlight_color = 'rgb(81,149,199)';

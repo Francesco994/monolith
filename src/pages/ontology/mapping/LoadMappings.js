@@ -1,6 +1,6 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import { List, Card, Popover, Spin, Icon } from 'antd';
+import { List, Card, Popover, Spin, Icon, Modal } from 'antd';
 import { getMappings, deleteMappingFile } from '../../../api/MastroApi';
 import { dateFormat } from '../../../utils/utils';
 import moment from 'moment'
@@ -10,7 +10,9 @@ export default class LoadMappings extends React.Component {
     _isMounted = false;
     state = {
         data: [],
-        loading: true
+        loading: true,
+        modalVisible: false,
+        toDelete: null
     }
 
     componentDidMount() {
@@ -20,6 +22,13 @@ export default class LoadMappings extends React.Component {
 
     componentWillUnmount() {
         this._isMounted = false
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.data !== this.props.data)
+            this.setState({
+                data: this.props.data.sort(this.sortByDateD)
+            })
     }
 
     requestMappings() {
@@ -39,6 +48,16 @@ export default class LoadMappings extends React.Component {
         });
     }
 
+    delete(mappingID) {
+        deleteMappingFile(
+            this.props.ontology.name,
+            this.props.ontology.version,
+            mappingID,
+            this.requestMappings.bind(this))
+        this.setState({modalVisible: false, toDelete: null})
+        
+    }
+
     render() {
         return (
             this.state.loading ? <div style={{ display: 'flex', justifyContent: 'center', paddingTop: 36 }}> <Spin size='large' /></div> :
@@ -47,6 +66,21 @@ export default class LoadMappings extends React.Component {
                     <div style={{ textAlign: 'center', padding: 16 }}>
                         <h1>Mappings</h1>
                     </div>
+                    <Modal
+                        closable={false}
+                        visible={this.state.modalVisible}
+                        onOk={() => this.delete(this.state.toDelete)}
+                        onCancel={() => this.setState({ modalVisible: false, toDelete: null })}
+                    >
+                        <div>
+                            <div>
+                                Delete mapping?
+                            </div>
+                            <div>
+                                Warning: this operation is irreversibile
+                            </div>
+                        </div>
+                    </Modal>
                     <List
                         style={{ height: 'calc(100vh - 135px)', overflow: 'auto' }}
                         className='bigCards'
@@ -81,12 +115,8 @@ export default class LoadMappings extends React.Component {
                                                     trigger="click">
                                                     <Icon type="info-circle" theme="filled" />
                                                 </Popover>
-                                                <span className='delete-icon' style={{paddingLeft: 12}} onClick={
-                                                    () => deleteMappingFile(
-                                                        this.props.ontology.name,
-                                                        this.props.ontology.version,
-                                                        item.mappingID,
-                                                        this.requestMappings.bind(this))
+                                                <span className='delete-icon' style={{ paddingLeft: 12 }} onClick={
+                                                    () => this.setState({ modalVisible: true, toDelete: item.mappingID })
                                                 }>
                                                     <Icon type="delete" theme="filled" />
                                                 </span>
@@ -97,7 +127,7 @@ export default class LoadMappings extends React.Component {
                             ) : (
                                     <List.Item>
                                         {/* <UploadFile type='mapping' current={this.props.ontology} rerender={this.requestMappings.bind(this)} /> */}
-                                        <AddMapping current={this.props.ontology} rerender={this.requestMappings.bind(this)}/>
+                                        <AddMapping current={this.props.ontology} rerender={this.requestMappings.bind(this)} />
                                     </List.Item>
                                 )
                         }

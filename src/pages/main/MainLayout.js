@@ -12,6 +12,7 @@ import UnderConstruction from '../components/UnderConstruction';
 import LoadKnowledgeGraphs from '../knowledgeGraph/LoadKnowledgeGraphs';
 import CurrentKnowledgeGraph from '../knowledgeGraph/CurrentKnowledgeGraph';
 import packageJson from '../../../package.json'
+import { getMastroVersion } from '../../api/MastroApi';
 const { Content, Footer, Sider } = Layout;
 
 export default class MainLayout extends React.Component {
@@ -22,13 +23,18 @@ export default class MainLayout extends React.Component {
       ontologies: [],
       kgs: [],
       dss: []
-    }
+    },
+    mastroVersion: '1.0'
   }
 
-  componentWillMount() {
-    const mainState = JSON.parse(localStorage.getItem("mainState"))
-    this.setState(mainState)
+  // componentWillMount() {
+  //   const mainState = JSON.parse(localStorage.getItem("mainState"))
+  //   this.setState(mainState)
 
+  // }
+
+  componentDidMount() {
+    getMastroVersion((mastroVersion) => this.setState({mastroVersion}))
   }
 
   onCollapse = (collapsed) => {
@@ -140,7 +146,7 @@ export default class MainLayout extends React.Component {
   }
 
   render() {
-    localStorage.setItem('mainState', JSON.stringify(this.state))
+    // localStorage.setItem('mainState', JSON.stringify(this.state))
     return (
       <Layout style={{ height: '100vh' }} >
         <Sider
@@ -203,6 +209,7 @@ export default class MainLayout extends React.Component {
           <Footer>
             <div>
               <span>Monolith {packageJson.version} | </span>
+              <span>Mastro {this.state.mastroVersion} | </span>
               <a href="http://www.obdasystems.com" target="_blank" rel="noopener noreferrer">OBDA Systems</a>
               <span> © 2018 - {new Date().getFullYear()}</span>
             </div>

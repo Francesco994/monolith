@@ -197,20 +197,20 @@ export default class ImportKnowledgeGraphRDF extends React.Component {
                                             </div>
                                         </div>
                                         <div className='card-bottom'>
-                                        <div>
-                                            {moment(item.uploadDate).format(dateFormat)}
+                                            <div>
+                                                {moment(item.uploadDate).format(dateFormat)}
+                                            </div>
+                                            <div className='card-actions'>
+                                                <span
+                                                    onClick={() => this.singleImport(item.fileName)}>
+                                                    <Icon type="import" />
+                                                </span>
+                                                <span className='delete-icon' style={{paddingLeft: 12}} 
+                                                    onClick={() => this.singleDelete(item.fileName)}>
+                                                    <Icon type="delete" theme="filled" />
+                                                </span>
+                                            </div>
                                         </div>
-                                        <div className='card-actions'>
-                                            <span
-                                                onClick={() => this.singleImport(item.fileName)}>
-                                                <Icon type="import" />
-                                            </span>
-                                            <span className='delete-icon' style={{paddingLeft: 12}} 
-                                                onClick={() => this.singleDelete(item.fileName)}>
-                                                <Icon type="delete" theme="filled" />
-                                            </span>
-                                        </div>
-                                    </div>
                                     </Card>
                                 </List.Item>
                             ) : (

@@ -1,6 +1,6 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import { List, Card, Popover, Spin, Button, Icon, Drawer, Modal, Select, Input } from 'antd';
+import { List, Card, Popover, Spin, Button, Icon, Drawer, Modal, Select, Input, Tooltip } from 'antd';
 import { getKnowledgeGraphs, deleteKnowledgeGraph } from '../../api/KgApi';
 import { dateFormat } from '../../utils/utils';
 import moment from 'moment'
@@ -169,11 +169,13 @@ export default class LoadKnowledgeGraphs extends React.Component {
                                         })
                                     }}
                                     style={{ width: 576, marginRight: 6 }} />
-                                <Button
-                                    style={{ backgroundColor: 'transparent' }}
-                                    onClick={this.showDrawer}
-                                    icon='plus'
-                                    shape='circle' />
+                                <Tooltip title="Add knowledge graph">
+                                    <Button
+                                        style={{ backgroundColor: 'transparent' }}
+                                        onClick={this.showDrawer}
+                                        icon='plus'
+                                        shape='circle' />
+                                </Tooltip>
                             </div>
                             <Select style={{ width: 205 }} defaultValue='dateD' onChange={this.changeSort} >
                                 <Option value='dateD' >

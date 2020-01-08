@@ -1,6 +1,6 @@
 import React from 'react'
 import {
-    Drawer, Form, Button, Col, Row, Input
+    Drawer, Form, Button, Col, Row, Input, Tooltip
 } from 'antd';
 
 import { postOntology } from '../../api/MastroApi'
@@ -48,11 +48,13 @@ class DrawerForm extends React.Component {
                 {/* <Button type='primary' style={{ height: 205, width: '100%' }} onClick={this.showDrawer}>
                     <Icon type="plus" /> Add Ontology
                 </Button> */}
-                <Button
-                    style={{ backgroundColor: 'transparent' }}
-                    onClick={this.showDrawer}
-                    icon='plus'
-                    shape='circle'/>
+                <Tooltip title="Add Ontology">
+                    <Button
+                        style={{ backgroundColor: 'transparent' }}
+                        onClick={this.showDrawer}
+                        icon='plus'
+                        shape='circle'/>
+                </Tooltip>
                 <Drawer
                     title="Create a new ontology"
                     width='40vw'

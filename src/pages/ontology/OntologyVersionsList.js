@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom'
-import { List, Card, Popover, Select, Button, Modal, Icon } from 'antd';
+import { List, Card, Popover, Select, Button, Modal, Icon, Input } from 'antd';
 import UploadFile from '../components/UploadFile';
 import { deleteOntologyVersion } from '../../api/MastroApi';
 import { dateFormat } from '../../utils/utils';
@@ -96,22 +96,51 @@ export default class OntologyVersionsList extends React.Component {
                 >
                     Delete ontology version?
                 </Modal>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 6 }}>
-                    <Button style={{ width: 140 }} type='primary' icon='step-backward' onClick={this.props.prev}>
-                        Back
-                    </Button>
-                    <h1 style={{ maxWidth: 700, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{`Ontology Versions for ${this.props.current}`}</h1>
-                    <Select style={{ width: 205 }} defaultValue='dateD' onChange={this.changeSort}>
-                        <Option value='dateD' >
-                            Sort by date (descending)
+
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <h1 style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        maxWidth: 700,
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        whiteSpace: 'nowrap'
+                    }}>
+                        {`Ontology Versions for ${this.props.current}`}
+                    </h1>
+
+                </div>
+                <div style={{ padding: 10 }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: 10 }}>
+                        <Button style={{ width: 205 }} type='primary' icon='step-backward' onClick={this.props.prev}>
+                            Back
+                        </Button>
+                        <div style={{ display: 'flex' }}>
+                            <Input
+                                placeholder='Search ontology...'
+                                onChange={(e) => {
+                                    this.setState({
+                                        data: this.props.data.filter(i => i.ontologyID.toLowerCase().includes(e.target.value.toLocaleLowerCase()))
+                                    })
+                                }}
+                                style={{ width: 576, marginRight: 6 }} />
+                            <Button
+                                style={{ visibility: 'hidden' }}
+                                icon='plus'
+                                shape='circle' />
+                        </div>
+                        <Select style={{ width: 205 }} defaultValue='dateD' onChange={this.changeSort} >
+                            <Option value='dateD' >
+                                Sort by date (descending)
                         </Option>
-                        <Option value='date' >
-                            Sort by date (ascending)
+                            <Option value='date' >
+                                Sort by date (ascending)
                         </Option>
-                        <Option value='name' >
-                            Sort by version
+                            <Option value='name' >
+                                Sort by name
                         </Option>
-                    </Select>
+                        </Select>
+                    </div>
                 </div>
                 <List
                     style={{ height: 'calc(100vh - 79px)', overflow: 'auto' }}
@@ -156,13 +185,13 @@ export default class OntologyVersionsList extends React.Component {
                                                         <p>{item.numDataProperties + " data properties"}</p>
                                                         <p>{item.numAxioms + " axioms"}</p>
                                                     </div>
-                                                    }
+                                                }
                                                 placement="bottom"
                                                 trigger="click">
                                                 <Icon type="info-circle" theme="filled" />
 
                                             </Popover>
-                                            <span className='delete-icon' style={{paddingLeft: 12}} onClick={
+                                            <span className='delete-icon' style={{ paddingLeft: 12 }} onClick={
                                                 () => this.setState({ modalVisible: true, toDelete: { name: item.ontologyID, version: item.versionID } })
                                             }>
                                                 <Icon type="delete" theme="filled" />

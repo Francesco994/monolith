@@ -347,8 +347,12 @@ td {
   border-color: var(--highlight)
 }
 
-.ant-select-dropdown-menu-item:hover:not(.ant-select-dropdown-menu-item-disabled), .ant-select-dropdown-menu-item-active:not(.ant-select-dropdown-menu-item-disabled) {
+.ant-select-dropdown-menu-item:hover:not(.ant-select-dropdown-menu-item-disabled), .ant-select-dropdown-menu-item-active:not(.ant-select-dropdown-menu-item-disabled), .ant-dropdown-menu {
   background-color: var(--highlight-gray);
+}
+
+.ant-dropdown-menu-item:hover {
+  background-color: unset;
 }
 
 .ant-btn-group .ant-btn-primary:first-child:not(:last-child) {

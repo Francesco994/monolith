@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, Select, Button, Drawer, Spin, Input } from 'antd';
+import { List, Select, Button, Drawer, Spin, Input, Tooltip } from 'antd';
 import DatasourceCard from './DatasourceCard';
 import DatasourceForm from './DatasourceForm';
 import { getDatasources, deleteDatasources } from '../../api/MastroApi';
@@ -73,11 +73,13 @@ export default class Datasources extends React.Component {
                                     })
                                 }} 
                                 style={{ width: 576, marginRight: 6 }} />
-                            <Button
-                                style={{ backgroundColor: 'transparent' }}
-                                onClick={this.showDrawer}
-                                icon='plus'
-                                shape='circle' />
+                            <Tooltip title='Search datasource'>
+                                <Button
+                                    style={{ backgroundColor: 'transparent' }}
+                                    onClick={this.showDrawer}
+                                    icon='plus'
+                                    shape='circle' />
+                            </Tooltip>
 
                         </div>
                         <Select style={{ width: 205 }} defaultValue='date' onChange={this.changeSort}>

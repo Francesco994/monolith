@@ -338,7 +338,7 @@ export default class MastroSPARQLTabPane extends React.Component {
 
     checkStatus(status) {
         this.setState({ status: status })
-        if (status.status === 'FINISHED') {
+        if (status.status === 'FINISHED' || status.status === 'ERROR') {
             this.stopPolling()
         }
     }

@@ -51,7 +51,6 @@ export default class OntologiesList extends React.Component {
             })
     }
 
-
     delete(ontologyID) {
         deleteOntology(ontologyID, this.props.rerender)
         this.props.close({
@@ -127,13 +126,13 @@ export default class OntologiesList extends React.Component {
                         <Select style={{ width: 205 }} defaultValue='dateD' onChange={this.changeSort} >
                             <Option value='dateD' >
                                 Sort by date (descending)
-                        </Option>
+                            </Option>
                             <Option value='date' >
                                 Sort by date (ascending)
-                        </Option>
+                            </Option>
                             <Option value='name' >
                                 Sort by name
-                        </Option>
+                            </Option>
                         </Select>
                     </div>
                 </div>

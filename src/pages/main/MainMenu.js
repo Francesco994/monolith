@@ -95,7 +95,9 @@ export default class MainMenu extends React.Component {
                             <Icon component={FaSignOutAlt} />
                             <span>
                                 <span>Logout </span>
-                                <span style={{ fontWeight: 'bold' }}>{localStorage.getItem('username')}</span>
+                                <span style={{ fontWeight: 'bold' }}>
+                                    {localStorage.getItem('username')}@{localStorage.getItem('mastroUrl')}
+                                </span>
                             </span>
                         </div>
                     </MenuItem>
