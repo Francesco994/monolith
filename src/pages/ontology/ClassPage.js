@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Popover, List, Spin } from 'antd';
+import { Card, Popover, List, Spin, Button } from 'antd';
 import { getClassPage } from '../../api/MastroApi';
 import svg from '../../css/class.svg'
 import { renderEntity, predicateTypes } from '../../utils/utils'
@@ -10,7 +10,8 @@ export default class ClassPage extends React.Component {
     _isMounted = false;
     state = {
         data: {},
-        loading: true
+        loading: true,
+        fullScreen: false
     }
 
     componentDidMount() {
@@ -153,7 +154,16 @@ export default class ClassPage extends React.Component {
                     </div>
                     <div>
                         <div style={{ paddingBottom: '16px' }}>
-                            <Card title="Description" className='description'>
+                            <Card
+                                title={<div>
+                                    Description
+                                    <Button 
+                                        ghost
+                                        icon={this.state.fullScreen ? 'fullscreen-exit' : 'fullscreen'}
+                                        style={{float: 'right'}}
+                                        onClick={() => this.setState({fullScreen: !this.state.fullScreen})}
+                                    />
+                                </div>} className={'description' + (this.state.fullScreen ? ' fullscreen' : '')}>
                                 <ListItem label data={this.state.data.classDescriptions} />
                             </Card>
                         </div>

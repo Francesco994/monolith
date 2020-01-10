@@ -51,7 +51,13 @@ export default class CurrentOntology extends React.Component {
                         </div>
                         <div>
                             <Route path="/open/ontology/info" render={(props) =>
-                                <OntologyInfo {...props} ontology={this.props.ontology} />} />
+                                <OntologyInfo 
+                                    {...props}
+                                    ontology={this.props.ontology}
+                                    ontologyVersions={this.props.ontologyVersions}
+                                    open={this.props.open}
+                                />} 
+                            />
                             <Route path="/open/ontology/wiki/:predicateType?/:entityID?" render={(props) =>
                                 <OntologyWiki {...props} ontology={this.props.ontology} />} />
                             <Route path="/open/ontology/graphol" render={(props) =>

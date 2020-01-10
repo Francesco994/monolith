@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Popover, List, Spin } from 'antd';
+import { Card, Popover, List, Spin, Button } from 'antd';
 import { getDataPropertyPage } from '../../api/MastroApi';
 import svg from '../../css/attr.svg'
 import { renderEntity, predicateTypes } from '../../utils/utils'
@@ -105,7 +105,16 @@ export default class DataPropertyPage extends React.Component {
                         </Popover>
                     </div>
                     <div style={{ paddingBottom: '16px' }}>
-                        <Card title="Description" className='description'>
+                        <Card
+                            title={<div>
+                                Description
+                                    <Button
+                                        ghost
+                                        icon={this.state.fullScreen ? 'fullscreen-exit' : 'fullscreen'}
+                                        style={{ float: 'right' }}
+                                        onClick={() => this.setState({ fullScreen: !this.state.fullScreen })}
+                                    />
+                                </div>} className={'description' + (this.state.fullScreen ? ' fullscreen' : '')}>
                             <ListItem label data={this.state.data.dataPropertyDescriptions} />
                         </Card>
                     </div>

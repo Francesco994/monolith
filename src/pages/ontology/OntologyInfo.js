@@ -2,17 +2,16 @@ import React from 'react';
 import { List, Card, Spin, Menu, Dropdown, Button } from 'antd';
 import MetricsTabs from './MetricsTabs'
 import DownloadFile from '../components/DownloadFile'
-import { getOntologyVersionInfo, getOntologies } from '../../api/MastroApi';
+import { getOntologyVersionInfo } from '../../api/MastroApi';
 import ListItem from '../components/ListItem';
 
 export default class OntologyInfo extends React.Component {
     _isMounted = false;
     constructor(props) {
         super(props)
-        this.state = { 
-            data: {}, 
+        this.state = {
+            data: {},
             loading: true,
-            versions: []
         }
     }
 
@@ -24,7 +23,6 @@ export default class OntologyInfo extends React.Component {
             this.props.ontology.name,
             this.props.ontology.version,
             this.loaded)
-        getOntologies(this.loadedOntologies)
     }
 
     componentDidUpdate(prevProps) {
@@ -44,12 +42,6 @@ export default class OntologyInfo extends React.Component {
         this._isMounted && this.setState({
             data: data,
             loading: false
-        });
-    }
-
-    loadedOntologies = (data) => {
-        this._isMounted && this.setState({
-            versions: data.find(i => i.ontologyID === this.props.ontology.name).ontologyVersions
         });
     }
 
@@ -87,7 +79,7 @@ export default class OntologyInfo extends React.Component {
                 data={metricsAxioms} />,
 
         ]
-        
+
         return (
             this.state.loading ? <div style={{ display: 'flex', justifyContent: 'center', paddingTop: 36 }}> <Spin size='large' /></div> :
 
@@ -100,17 +92,24 @@ export default class OntologyInfo extends React.Component {
                         <span>
                             <span>Ontology Version IRI: </span>
                             {this.props.ontology.version === 'NO_VERSION_PROVIDED' ?
-                                    <span className='disabled'>no version defined</span> :
-                                    <span>{this.props.ontology.version}</span>}
+                                <span className='disabled'>no version defined</span> :
+                                <span>{this.props.ontology.version}</span>}
+                            <span style={{marginLeft: 8}}>
+                                <Dropdown overlay={
+                                    <Menu>
+                                        {this.props.ontologyVersions.map(i => 
+                                            <Menu.Item 
+                                                key={i.versionID} 
+                                                onClick={() => this.props.open(this.props.ontology.name, i.versionID, this.props.ontologyVersions)}>
+                                                {i.versionID}
+                                            </Menu.Item>)}
+                                    </Menu>
+                                }>
+                                    <Button icon="down">Other versions</Button>
+                                </Dropdown>
+                            </span>
                         </span>
                     </h3>
-                    <Dropdown overlay={
-                        <Menu>
-                            {this.state.versions.map(i => <Menu.Item key={i.versionID}>{i.versionID}</Menu.Item>)}
-                        </Menu>
-                    }>
-                        <Button>Versions</Button>
-                    </Dropdown>
                     <div style={{ paddingBottom: 12 }}>
                         <Card title='Description' className='description'>
                             <ListItem label data={this.state.data.ontologyDescriptions} />
