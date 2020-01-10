@@ -73,7 +73,7 @@ export default class Datasources extends React.Component {
                                     })
                                 }} 
                                 style={{ width: 576, marginRight: 6 }} />
-                            <Tooltip title='Search datasource'>
+                            <Tooltip title='Add datasource'>
                                 <Button
                                     style={{ backgroundColor: 'transparent' }}
                                     onClick={this.showDrawer}

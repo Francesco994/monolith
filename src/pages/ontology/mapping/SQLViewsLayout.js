@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, Drawer, Button } from 'antd';
+import { Layout, Drawer, Button, Tooltip } from 'antd';
 import SearchList from '../../components/FastSearchList';
 import SQLViewsPage from './SQLViewsPage';
 import AddSQLView from './AddSQLView';
@@ -74,11 +74,13 @@ export default class SQLViewsPane extends React.Component {
                             ontology={this.props.ontology}
                             mappingID={this.props.mappingID}
                             onHandle={this.onHandle} />
-                        <Button
-                            style={{ float: 'right', backgroundColor: 'transparent' }}
-                            onClick={this.toggleEdit}
-                            icon='plus'
-                            shape='circle' />
+                        <Tooltip title='Add SQL view'>
+                            <Button
+                                style={{ float: 'right', backgroundColor: 'transparent' }}
+                                onClick={this.toggleEdit}
+                                icon='plus'
+                                shape='circle' />
+                        </Tooltip>
                     </div>
                 </Sider>
                 <Layout>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, Button, Drawer, Input } from 'antd';
+import { List, Button, Drawer, Input, Tooltip } from 'antd';
 import Assertion from './Assertion';
 import AssertionForm from './AssertionForm';
 import { deleteMappingAssertion } from '../../../api/MastroApi';
@@ -12,8 +12,8 @@ export default class AssertionsList extends React.Component {
         drawer: null,
     }
 
-    componentDidMount () {
-        this.setState({filterData: this.props.list})
+    componentDidMount() {
+        this.setState({ filterData: this.props.list })
     }
 
     onClose = () => {
@@ -62,24 +62,26 @@ export default class AssertionsList extends React.Component {
     render() {
         return (
             <div>
-                <div style={{ display: 'flex', justifyContent: 'center', padding: 10}}>
+                <div style={{ display: 'flex', justifyContent: 'center', padding: 10 }}>
                     <Input
                         placeholder={`Search by ${this.props.entity ? 'entity' : 'SQL view'}...`}
                         onChange={(e) => {
                             this.setState({
                                 filterData: this.props.list.filter(i => (
-                                    this.props.entity 
-                                        ? renderEntity(i.currentEntity).toLowerCase().includes(e.target.value.toLowerCase()) 
+                                    this.props.entity
+                                        ? renderEntity(i.currentEntity).toLowerCase().includes(e.target.value.toLowerCase())
                                         : i.mappingBody.bodyFrom.map(from => from.sqlViewID).join('|').toLowerCase().includes(e.target.value.toLowerCase())
                                 ))
                             })
                         }}
                         style={{ width: 576, marginRight: 6 }} />
-                    <Button
-                        style={{ backgroundColor: 'transparent' }}
-                        onClick={this.showDrawer}
-                        icon='plus'
-                        shape='circle' />
+                    <Tooltip title='Add mapping'>
+                        <Button
+                            style={{ backgroundColor: 'transparent' }}
+                            onClick={this.showDrawer}
+                            icon='plus'
+                            shape='circle' />
+                    </Tooltip>
                 </div>
                 <Drawer
                     title='Add Ontology Mapping'
