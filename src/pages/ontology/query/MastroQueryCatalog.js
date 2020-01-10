@@ -1,5 +1,5 @@
 import React from 'react';
-import { Menu, Icon, Button, Upload, message } from 'antd';
+import { Menu, Icon, Button, Upload, message, Tooltip } from 'antd';
 import { deleteFromQueryCatalog, downloadQueryCatalog, uploadQueryCatalog } from '../../../api/MastroApi';
 import { saveFileInfo, getBase64 } from '../../../utils/utils';
 
@@ -70,11 +70,15 @@ export default class MastroQueryCatalog extends React.Component {
         return (
             <div>
                 {!this.props.collapsed && <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: 8, }}>
-                    <h3 style={{ margin: '0px 0px 0px 16px' }}>Query Catalog</h3>
+                    <div style={{margin: '0px 0px 0px 16px', color: 'var(--highlight)', fontSize: '1.17em', fontWeight: 500}}>Query Catalog</div>
                     <div>
-                        <Button style={{ margin: '0px 4px' }} ghost size='small' shape='circle' icon='download' onClick={this.downloadCatalog} />
+                        <Tooltip title='Download query catalog'>
+                            <Button style={{ margin: '0px 4px' }} ghost size='small' shape='circle' icon='download' onClick={this.downloadCatalog} />
+                        </Tooltip>
                         <Upload beforeUpload={this.beforeUpload.bind(this)} fileList={[]}>
-                            <Button ghost size='small' shape='circle' icon='upload' />
+                            <Tooltip title='Upload query catalog'>
+                                <Button ghost size='small' shape='circle' icon='upload' />
+                            </Tooltip>
                         </Upload>
                     </div>
                 </div>}

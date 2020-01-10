@@ -97,7 +97,7 @@ export default class MastroSPARQLEndpoint extends React.Component {
         return (
             this.state.loadingCatalog || this.state.loadingMappings ?
                 <div style={{ display: 'flex', justifyContent: 'center', paddingTop: 36 }}> <Spin size='large' /></div> :
-                <Layout style={{ minHeight: 'calc(100vh - 49px)' }}>
+                <Layout style={{ minHeight: 'calc(100vh - 50px)' }}>
                     <Sider
                         className='thirdMenu'
                         collapsed={this.state.collapsed}

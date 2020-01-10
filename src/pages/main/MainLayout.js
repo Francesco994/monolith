@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom'
-import { Layout } from 'antd';
+import { Layout, ConfigProvider, Icon } from 'antd';
 // import logo_scritta from '../scritta.svg';
 // import logo from '../only_logo.svg';
 import MainMenu from './MainMenu'
@@ -12,7 +12,8 @@ import UnderConstruction from '../components/UnderConstruction';
 import LoadKnowledgeGraphs from '../knowledgeGraph/LoadKnowledgeGraphs';
 import CurrentKnowledgeGraph from '../knowledgeGraph/CurrentKnowledgeGraph';
 import packageJson from '../../../package.json'
-import { getMastroVersion } from '../../api/MastroApi';
+import { getMastroVersion, getJenaVersion } from '../../api/MastroApi';
+import { FaSeedling } from 'react-icons/fa';
 const { Content, Footer, Sider } = Layout;
 
 export default class MainLayout extends React.Component {
@@ -34,7 +35,8 @@ export default class MainLayout extends React.Component {
   }
 
   componentDidMount() {
-    getMastroVersion((mastroVersion) => this.setState({mastroVersion}))
+    getMastroVersion((mastroVersion) => this.setState({ mastroVersion }))
+    getJenaVersion((jenaVersion) => this.setState({ jenaVersion }))
   }
 
   onCollapse = (collapsed) => {
@@ -45,7 +47,7 @@ export default class MainLayout extends React.Component {
     }));
   }
 
-  openCurrentOntology(ontologyID, versionID, ontologyVersions) {    
+  openCurrentOntology(ontologyID, versionID, ontologyVersions) {
     const current = {
       name: ontologyID,
       version: versionID
@@ -171,45 +173,53 @@ export default class MainLayout extends React.Component {
         <Layout>
           {/* <Header style={{ background: '#fff', padding: 0 }} /> */}
           <Content>
-            {/* <Breadcrumb style={{ margin: '16px 0' }}>
+            <ConfigProvider renderEmpty={() =>
+              <div style={{ textAlign: 'center' }}>
+                <Icon component={FaSeedling} style={{ fontSize: '4em', color: 'var(--highlight-gray)' }} />
+                <p style={{color: 'var(--highlight-gray)', paddingTop: 8}}>No Elements</p>
+              </div>
+              }>
+              {/* <Breadcrumb style={{ margin: '16px 0' }}>
               <Breadcrumb.Item>User</Breadcrumb.Item>
               <Breadcrumb.Item>Bill</Breadcrumb.Item>
             </Breadcrumb> */}
-            {/* <div style={{ padding: '0px' }}> */}
-            <Route exact path="/" render={(props) =>
-              <Home {...props} openOntology={this.openCurrentOntology.bind(this)} openKg={this.openCurrentKg.bind(this)} />} />
+              {/* <div style={{ padding: '0px' }}> */}
+              <Route exact path="/" render={(props) =>
+                <Home {...props} openOntology={this.openCurrentOntology.bind(this)} openKg={this.openCurrentKg.bind(this)} />} />
 
-            <Route path="/ontology" render={(props) =>
-              <LoadOntologies {...props} open={this.openCurrentOntology.bind(this)} close={this.closeOntology.bind(this)} />} />
-            <Route path="/open/ontology/:menu" render={(props) => (
-              this.state.current === undefined ?
-                <Redirect to="/" /> :
-                <CurrentOntology 
-                  {...props} 
-                  ontology={this.state.current}
-                  ontologyVersions={this.state.ontologyVersions}
-                  open={this.openCurrentOntology.bind(this)}
-                />
-            )
-            } />
+              <Route path="/ontology" render={(props) =>
+                <LoadOntologies {...props} open={this.openCurrentOntology.bind(this)} close={this.closeOntology.bind(this)} />} />
+              <Route path="/open/ontology/:menu" render={(props) => (
+                this.state.current === undefined ?
+                  <Redirect to="/" /> :
+                  <CurrentOntology
+                    {...props}
+                    ontology={this.state.current}
+                    ontologyVersions={this.state.ontologyVersions}
+                    open={this.openCurrentOntology.bind(this)}
+                  />
+              )
+              } />
 
-            <Route path="/kg" render={(props) =>
-              <LoadKnowledgeGraphs {...props} open={this.openCurrentKg.bind(this)} close={this.closeOntology.bind(this)} />} />
-            <Route path="/open/kg/:menu" render={(props) => (
-              this.state.current === undefined ?
-                <Redirect to="/" /> :
-                <CurrentKnowledgeGraph {...props} kg={this.state.current} />
-            )
-            } />
-            <Route path="/dataset" component={() => <UnderConstruction />} />
-            <Route path="/admin" component={() => <UnderConstruction />} />
-            <Route path="/settings/:tab" render={(props) => <Settings {...props} />} />
-            {/* </div> */}
+              <Route path="/kg" render={(props) =>
+                <LoadKnowledgeGraphs {...props} open={this.openCurrentKg.bind(this)} close={this.closeOntology.bind(this)} />} />
+              <Route path="/open/kg/:menu" render={(props) => (
+                this.state.current === undefined ?
+                  <Redirect to="/" /> :
+                  <CurrentKnowledgeGraph {...props} kg={this.state.current} />
+              )
+              } />
+              <Route path="/dataset" component={() => <UnderConstruction />} />
+              <Route path="/admin" component={() => <UnderConstruction />} />
+              <Route path="/settings/:tab" render={(props) => <Settings {...props} />} />
+              {/* </div> */}
+            </ConfigProvider>
           </Content>
           <Footer>
             <div>
               <span>Monolith {packageJson.version} | </span>
               <span>Mastro {this.state.mastroVersion} | </span>
+              <span>Jena {this.state.jenaVersion} | </span>
               <a href="http://www.obdasystems.com" target="_blank" rel="noopener noreferrer">OBDA Systems</a>
               <span> © 2018 - {new Date().getFullYear()}</span>
             </div>

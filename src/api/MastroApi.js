@@ -178,7 +178,7 @@ export function uploadOntologyFile(file, ontologyID, callback) {
     });
 }
 
-export function downloadOntologyFile(name, version, callback) {
+export function downloadOntologyFile(name, version, format, approximated, callback) {
     if (fakeCalls) { console.log(name, version, callback); return }
     const url = localStorage.getItem('mastroUrl') + '/owlOntology/' + name + '/version'
     const method = 'GET'
@@ -186,12 +186,15 @@ export function downloadOntologyFile(name, version, callback) {
     axios({
         url: url,
         method: method,
-        params: { version: encodedVersion },
+        params: {
+            version: encodedVersion,
+            format,
+            approximated
+        },
         headers: JSON.parse(localStorage.getItem('headers')),
     }).then(function (response) {
         callback(response.data, name + '.owl')
     }).catch(function (err) {
-        callback(false)
         manageError(err)
     });
 }
@@ -1120,6 +1123,21 @@ export function getMastroVersion(callback) {
 export function getMastroInstances(callback) {
     if (fakeCalls) { return callback([]) }
     const url = localStorage.getItem('mastroUrl') + '/mastro/instances'
+    const method = 'GET'
+    axios({
+        url: url,
+        method: method,
+        headers: JSON.parse(localStorage.getItem('headers')),
+    }).then(function (response) {
+        callback(response.data)
+    }).catch(function (err) {
+        manageError(err)
+    });
+}
+
+export function getJenaVersion(callback) {
+    if (fakeCalls) { return callback([]) }
+    const url = localStorage.getItem('mastroUrl') + '/jena/version'
     const method = 'GET'
     axios({
         url: url,

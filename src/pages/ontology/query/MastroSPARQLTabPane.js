@@ -60,7 +60,8 @@ export default class MastroSPARQLTabPane extends React.Component {
             tabKey: this.props.tabKey,
             queryID: this.props.query.queryID,
             new: this.props.new,
-            selectedMappingID: currMappingID
+            selectedMappingID: currMappingID,
+            showResults: this.props.executionID
         })
         this.props.mappings.forEach(mapping => {
             getMastroStatus(
@@ -106,7 +107,7 @@ export default class MastroSPARQLTabPane extends React.Component {
 
         this.yasqe.refresh();
 
-        if (this.props.executionID && this.state.runningMappingIDs.includes(this.state.selectedMappingID)) {
+        if (this.props.executionID) {//this.state.runningMappingIDs.includes(this.state.selectedMappingID)) {
             this.startPolling(this.props.executionID)
         }
     }
@@ -425,7 +426,7 @@ export default class MastroSPARQLTabPane extends React.Component {
         const enableRun = this.state.runningMappingIDs.includes(this.state.selectedMappingID) && this.state.queryValid
 
         return (
-            <div style={{ padding: '0px 8px 8px 8px', height: 'calc(100vh - 105px)', overflow: 'auto' }}>
+            <div style={{ padding: '0px 8px 8px 8px', height: 'calc(100vh - 106px)', overflow: 'auto' }}>
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
                     <MappingSelector
                         mappings={this.props.mappings}
@@ -437,7 +438,13 @@ export default class MastroSPARQLTabPane extends React.Component {
                         stopMastro={this.stopMastro}
                     />
                 </div>
-                <Progress percent={this.state.status.percentage} status={this.state.status.hasError ? 'exception' : 'normal'}/>
+                <Progress
+                    percent={this.state.status.percentage} 
+                    status={this.state.status.percentage === 100 
+                        ? null
+                        : this.state.status.hasError
+                            ? 'exception' 
+                            : 'active'}/>
                 <div id={"sparql_" + this.props.num} />
                 <TextArea
                     style={{ margin: '12px 0px 12px 0px' }}

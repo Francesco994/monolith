@@ -504,9 +504,14 @@ a:hover, .link:hover {
   color: var(--white);
 }
 
+.catalogQuery>div>div:hover {
+  color: var(--highlight);
+  transition: .4s ease-in-out;
+}
+
 .catalogQuery>div>span>i:hover {
   color: var(--red);
-  transition: .4s ease-in-out
+  transition: .4s ease-in-out;
 }
 
 .ant-menu-item div a {

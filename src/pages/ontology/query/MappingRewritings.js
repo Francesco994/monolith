@@ -1,5 +1,8 @@
 import React from 'react'
 import { Table } from 'antd';
+import SyntaxHighlighter from 'react-syntax-highlighter';
+import { darcula } from 'react-syntax-highlighter/dist/styles/hljs';
+import sqlFormatter from 'sql-formatter'
 import { getMappingRewritings } from '../../../api/MastroApi';
 
 const POLLING_TIME = 1000;
@@ -43,7 +46,9 @@ export default class MappingRewritings extends React.Component {
         for (let i = 0; i < results.length; i++) {
             data.push({
                 key: i,
-                value: results[i],
+                value: <SyntaxHighlighter language='sql' style={darcula}>
+                    {sqlFormatter.format(results[i])}
+                </SyntaxHighlighter>
             })
         }
         this.setState({ data: data, loading: this.state.loading && results.length < this.state.pagination.defaultPageSize });
