@@ -155,13 +155,19 @@ export default class ClassPage extends React.Component {
                     <div>
                         <div style={{ paddingBottom: '16px' }}>
                             <Card
+                                tabIndex='0'
+                                onKeyUp={(e) => {
+                                    if (e.key === 'Escape') {
+                                        this.setState({ fullScreen: false })
+                                    }
+                                }}
                                 title={<div>
                                     Description
-                                    <Button 
+                                    <Button
                                         ghost
                                         icon={this.state.fullScreen ? 'fullscreen-exit' : 'fullscreen'}
-                                        style={{float: 'right'}}
-                                        onClick={() => this.setState({fullScreen: !this.state.fullScreen})}
+                                        style={{ float: 'right' }}
+                                        onClick={() => this.setState({ fullScreen: !this.state.fullScreen })}
                                     />
                                 </div>} className={'description' + (this.state.fullScreen ? ' fullscreen' : '')}>
                                 <ListItem label data={this.state.data.classDescriptions} />
