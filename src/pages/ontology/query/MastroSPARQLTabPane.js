@@ -20,12 +20,14 @@ import {
     getPrefixes,
     startNewConstructQuery,
     getConstructQueryStatus,
-    startConstructQuery
+    startConstructQuery,
+    getOntologyVersionCatalog
 } from '../../../api/MastroApi';
 
 const { TextArea } = Input;
 
 const POLLING_TIME = 1000
+
 
 export default class MastroSPARQLTabPane extends React.Component {
     state = {
@@ -40,6 +42,7 @@ export default class MastroSPARQLTabPane extends React.Component {
         // QUERY STATUS
         loading: false,
         selectedMappingID: null,
+        selectedDatasource: null,
         status: {},
         interval: 0,
         //      MASTRO STATUS
@@ -72,6 +75,7 @@ export default class MastroSPARQLTabPane extends React.Component {
         });
         /** INITIALIZE YASQE */
         this.changeDescription({ target: { value: this.props.query.queryDescription } })
+        this.addAutoCompleters()
         this.yasqe = YASQE(document.getElementById('sparql_' + this.props.num),
             {
                 // Disable share link
@@ -91,12 +95,12 @@ export default class MastroSPARQLTabPane extends React.Component {
         } else {
             this.yasqe.setValue("")
         }
-        this.setState({queryValid: this.yasqe.queryValid})
+        this.setState({ queryValid: this.yasqe.queryValid })
 
         this.yasqe.on('change', () => {
             if (!this.state.dirty) {
                 this.props.setDirty(this.state.tabKey)
-                this.setState({dirty: true})
+                this.setState({ dirty: true })
             }
             if (this.state.queryValid !== this.yasqe.queryValid) {
                 this.setState({ queryValid: this.yasqe.queryValid })
@@ -116,6 +120,54 @@ export default class MastroSPARQLTabPane extends React.Component {
         this.yasqe.refresh();
     }
 
+    addAutoCompleters() {
+        YASQE.registerAutocompleter('customClassCompleter', this.customClassCompleter);
+        YASQE.registerAutocompleter('customPropertyCompleter', this.customPropertyCompleter);
+        //And, to make sure we don't use the other property and class autocompleters, overwrite the default enabled completers
+        YASQE.defaults.autocompleters = ['prefixes', 'variables', 'customClassCompleter', 'customPropertyCompleter'];
+    }
+
+    customClassCompleter = (yasqe) => {
+        var returnObj = {
+            isValidCompletionPosition: function () { return YASQE.Autocompleters.classes.isValidCompletionPosition(yasqe) },
+            preProcessToken: function (token) { return YASQE.Autocompleters.classes.preProcessToken(yasqe, token) },
+            postProcessToken: function (token, suggestedString) { return YASQE.Autocompleters.classes.postProcessToken(yasqe, token, suggestedString) }
+        }
+        returnObj.bulk = true
+        returnObj.async = true
+        returnObj.autoShow = true
+        returnObj.get = (token, callback) => {
+            getOntologyVersionCatalog(this.props.ontology.name, this.props.ontology.version, (data) => {
+                data && callback(data.ontologyClasses.map(i => i.entityIRI).sort())
+            })
+        }
+
+        return returnObj
+    }
+
+    customPropertyCompleter = (yasqe) => {
+        //we use several functions from the regular property autocompleter (this way, we don't have to re-define code such as determining whether we are in a valid autocompletion position)
+        var returnObj = {
+            isValidCompletionPosition: function () { return YASQE.Autocompleters.properties.isValidCompletionPosition(yasqe) },
+            preProcessToken: function (token) { return YASQE.Autocompleters.properties.preProcessToken(yasqe, token) },
+            postProcessToken: function (token, suggestedString) { return YASQE.Autocompleters.properties.postProcessToken(yasqe, token, suggestedString) }
+        };
+
+        //In this case we assume the properties will fit in memory. So, turn on bulk loading, which will make autocompleting a lot faster
+        returnObj.bulk = true;
+        returnObj.async = true;
+
+        //and, as everything is in memory, enable autoShowing the completions
+        returnObj.autoShow = true;
+
+        returnObj.get = (token, callback) => {
+            getOntologyVersionCatalog(this.props.ontology.name, this.props.ontology.version, (data) => {
+                data && callback([...data.ontologyObjectProperties.map(i => i.entityIRI), ...data.ontologyDataProperties.map(i => i.entityIRI)].sort())
+            })
+        }
+        return returnObj;
+    }
+
     loadedPrefixes = (prefixes) => {
         let yPrefixes = {}
         for (let prefix of prefixes) {
@@ -131,6 +183,7 @@ export default class MastroSPARQLTabPane extends React.Component {
             this.props.ontology.name,
             this.props.ontology.version,
             this.state.selectedMappingID,
+            this.state.selectedDatasource,
             this.startPollingMastro.bind(this))
         this.setState({ loadingMastro: true })
 
@@ -236,6 +289,10 @@ export default class MastroSPARQLTabPane extends React.Component {
 
     onSelectMapping(value) {
         this.setState({ selectedMappingID: value })
+    }
+
+    onSelectDatasource(value) {
+        this.setState({ selectedDatasource: value })
     }
 
     start() {
@@ -431,6 +488,7 @@ export default class MastroSPARQLTabPane extends React.Component {
                     <MappingSelector
                         mappings={this.props.mappings}
                         onSelection={this.onSelectMapping.bind(this)}
+                        onSelectionDatasource={this.onSelectDatasource.bind(this)}
                         selected={this.state.selectedMappingID}
                         loadingMastro={this.state.loadingMastro}
                         runningMappingIDs={this.state.runningMappingIDs}
@@ -439,12 +497,12 @@ export default class MastroSPARQLTabPane extends React.Component {
                     />
                 </div>
                 <Progress
-                    percent={this.state.status.percentage} 
-                    status={this.state.status.percentage === 100 
+                    percent={this.state.status.percentage}
+                    status={this.state.status.percentage === 100
                         ? null
                         : this.state.status.hasError
-                            ? 'exception' 
-                            : 'active'}/>
+                            ? 'exception'
+                            : 'active'} />
                 <div id={"sparql_" + this.props.num} />
                 <TextArea
                     style={{ margin: '12px 0px 12px 0px' }}

@@ -233,6 +233,23 @@ export function getOntologyVersionHierarchy(name, version, callback) {
     });
 }
 
+export function getOntologyVersionCatalog(name, version, callback) {
+    if (fakeCalls) return callback(fakeData.mastroData)
+    const url = localStorage.getItem('mastroUrl') + '/owlOntology/' + name + '/version/catalog'
+    const method = 'GET'
+    const encodedVersion = version//encodeURIComponent(version)
+    axios({
+        url: url,
+        method: method,
+        params: { version: encodedVersion },
+        headers: JSON.parse(localStorage.getItem('headers')),
+    }).then(function (response) {
+        callback(response.data)
+    }).catch(function (err) {
+        manageError(err)
+    });
+}
+
 export function getGraphol(name, version, callback) {
     if (fakeCalls) return callback(graphol)
     const url = localStorage.getItem('mastroUrl') + '/owlOntology/' + name + '/version/graphol'
@@ -697,7 +714,7 @@ export function deleteFromQueryCatalog(name, version, queryID, callback) {
     });
 }
 
-export function startMastro(name, version, mapping, callback) {
+export function startMastro(name, version, mapping, datasource, callback) {
     if (fakeCalls) return callback()
     const url = localStorage.getItem('mastroUrl') + '/owlOntology/' + name + '/version/mapping/' + mapping + '/instance'
     const method = 'POST'
@@ -705,7 +722,7 @@ export function startMastro(name, version, mapping, callback) {
     axios({
         url: url,
         method: method,
-        params: { version: encodedVersion },
+        params: { version: encodedVersion, datasource },
         data: MastroProperties,
         headers: JSON.parse(localStorage.getItem('headers')),
     }).then(function (response) {

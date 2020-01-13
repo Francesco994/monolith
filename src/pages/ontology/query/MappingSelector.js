@@ -1,9 +1,18 @@
 import React from 'react';
 import { Select, Popover, Button, Icon, } from 'antd';
+import { getDatasources } from '../../../api/MastroApi';
 
 const Option = Select.Option;
 
 export default class MappingSelector extends React.Component {
+
+    state = {
+        datasources: []
+    }
+
+    componentDidMount() {
+        getDatasources((data) => this.setState({ datasources: data.map(i => i.id) }))
+    }
 
     getOptions(item) {
 
@@ -33,6 +42,10 @@ export default class MappingSelector extends React.Component {
         this.props.onSelection(value, enableStart)
     }
 
+    selectDatasource = (value) => {
+        this.props.onSelectionDatasource(value)
+    }
+
     render() {
         if (this.props.mappings[0] === undefined) return null
         const mappings = this.props.mappings.map(item => this.getOptions(item));
@@ -50,6 +63,14 @@ export default class MappingSelector extends React.Component {
                         onChange={this.select}
                         disabled={this.props.loadingMastro}>
                         {mappings}
+                    </Select>
+
+                    <Select
+                        style={{ paddingLeft: 8, width: 200 }}
+                        placeholder='Choose datasource'
+                        onChange={this.selectDatasource}
+                        disabled={this.props.loadingMastro}>
+                        {this.state.datasources.map(i => <Option value={i} key={i}>{i}</Option>)}
                     </Select>
 
                     <Button.Group style={{ margin: '0px 10px' }}>
