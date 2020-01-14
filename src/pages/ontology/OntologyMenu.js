@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 import { Menu, Icon } from 'antd';
-import { FaInfoCircle, FaBookOpen, FaBezierCurve, FaLink, FaSearchengin } from 'react-icons/fa';
+import { FaInfoCircle, FaBookOpen, FaLink, FaSearchengin } from 'react-icons/fa';
+import {graphol} from '../../css/icons'
 
 const MenuItem = Menu.Item;
 
@@ -50,7 +51,7 @@ export default class OntologyMenu extends React.Component {
                 </MenuItem>
                 <MenuItem key="graphol">
                     <Link to="/open/ontology/graphol" >
-                        <Icon component={FaBezierCurve} />
+                        <Icon component={graphol}/>
                         <span>Graphol</span>
                     </Link>
                 </MenuItem>

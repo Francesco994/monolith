@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom'
 import { Menu, Icon } from 'antd';
-import { FaSitemap, FaCog, FaSignOutAlt, FaDiceD20 } from 'react-icons/fa';
+import { FaSitemap, FaCog, FaSignOutAlt, FaProjectDiagram } from 'react-icons/fa';
 
 const MenuItem = Menu.Item;
 
@@ -44,7 +44,7 @@ export default class MainMenu extends React.Component {
                             style={{ color: 'rgba(255, 255, 255, 0.75)' }}
                         >
                             <span>
-                                <Icon component={FaDiceD20} />
+                                <Icon component={FaProjectDiagram} />
                                 <span>Knowledge Graph</span>
                             </span>
                         </NavLink>
