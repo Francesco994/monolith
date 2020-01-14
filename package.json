@@ -13,6 +13,7 @@
     "axios": "^0.19.0",
     "cytoscape": "^3.7.3",
     "electron-is-dev": "^1.1.0",
+    "grapholscape": "0.0.1-beta.1",
     "griddle-callback": "^0.2.1",
     "griddle-react": "^0.8.2",
     "react": "^16.8.6",

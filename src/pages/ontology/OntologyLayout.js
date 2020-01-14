@@ -7,7 +7,7 @@ import OntologyWiki from './OntologyWiki';
 import MastroSPARQLEndpoint from './query/MastroSPARQLEndpoint';
 import LoadMappings from './mapping/LoadMappings';
 import CurrentMapping from './mapping/MappingLayout';
-import Graphol from './Grapholscape';
+import Graphol from './GrapholscapeNpm';
 import UnderConstruction from '../components/UnderConstruction';
 import { FaChevronCircleLeft, FaChevronCircleRight } from 'react-icons/fa';
 

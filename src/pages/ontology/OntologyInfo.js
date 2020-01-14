@@ -94,20 +94,22 @@ export default class OntologyInfo extends React.Component {
                             {this.props.ontology.version === 'NO_VERSION_PROVIDED' ?
                                 <span className='disabled'>no version defined</span> :
                                 <span>{this.props.ontology.version}</span>}
-                            <span style={{marginLeft: 8}}>
-                                <Dropdown overlay={
-                                    <Menu>
-                                        {this.props.ontologyVersions.map(i => 
-                                            <Menu.Item 
-                                                key={i.versionID} 
-                                                onClick={() => this.props.open(this.props.ontology.name, i.versionID, this.props.ontologyVersions)}>
-                                                {i.versionID}
-                                            </Menu.Item>)}
-                                    </Menu>
-                                }>
-                                    <Button icon="down">Other versions</Button>
-                                </Dropdown>
-                            </span>
+                            {this.props.ontologyVersions &&
+                                <span style={{marginLeft: 8}}>
+                                    <Dropdown overlay={
+                                        <Menu>
+                                            {this.props.ontologyVersions.map(i => 
+                                                <Menu.Item 
+                                                    key={i.versionID} 
+                                                    onClick={() => this.props.open(this.props.ontology.name, i.versionID, this.props.ontologyVersions)}>
+                                                    {i.versionID}
+                                                </Menu.Item>)}
+                                        </Menu>
+                                    }>
+                                        <Button icon="down">Other versions</Button>
+                                    </Dropdown>
+                                </span>
+                            }
                         </span>
                     </h3>
                     <div style={{ paddingBottom: 12 }}>

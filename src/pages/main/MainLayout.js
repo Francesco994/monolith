@@ -12,6 +12,7 @@ import UnderConstruction from '../components/UnderConstruction';
 import LoadKnowledgeGraphs from '../knowledgeGraph/LoadKnowledgeGraphs';
 import CurrentKnowledgeGraph from '../knowledgeGraph/CurrentKnowledgeGraph';
 import packageJson from '../../../package.json'
+import grapholscapePackageJson from 'grapholscape/package.json'
 import { getMastroVersion, getJenaVersion } from '../../api/MastroApi';
 import { FaSeedling } from 'react-icons/fa';
 const { Content, Footer, Sider } = Layout;
@@ -220,6 +221,7 @@ export default class MainLayout extends React.Component {
               <span>Monolith {packageJson.version} | </span>
               <span>Mastro {this.state.mastroVersion} | </span>
               <span>Jena {this.state.jenaVersion} | </span>
+              <span>Grapholscape {grapholscapePackageJson.version} | </span>
               <a href="http://www.obdasystems.com" target="_blank" rel="noopener noreferrer">OBDA Systems</a>
               <span> © 2018 - {new Date().getFullYear()}</span>
             </div>

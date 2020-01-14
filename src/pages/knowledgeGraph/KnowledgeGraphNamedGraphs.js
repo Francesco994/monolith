@@ -22,7 +22,7 @@ export default class KnowledgeGraphNamedGraphs extends React.Component {
     render() {
         return (
             this.state.loading ?
-                <Spin size='small' />
+                <Spin size='small' style={{ display: 'flex', justifyContent: 'flex-end', alignContent: 'center', marginRight: 50 }}/>
                 :
                 <div style={{ display: 'flex', justifyContent: 'flex-end', alignContent: 'center', marginRight: 50 }}>
                     <h3>Filter named graphs: </h3>
